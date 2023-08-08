@@ -18,14 +18,46 @@ public class Account {
     private double balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name="client_id")
     private Client client;
 
-    public long getId() {
-        return id;
+    public Account() {
     }
 
-    @JsonIgnore
+    public Account(String number, LocalDateTime creationDate, double balance) {
+        this.number = number;
+        this.creationDate = creationDate;
+        this.balance = balance;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -34,17 +66,8 @@ public class Account {
         this.client = client;
     }
 
-    public Account() {
+    public long getId() {
+
+        return id;
     }
-
-    public Account(String number, LocalDateTime creationDate, double balance,  Client client1) {
-        this.number = number;
-        this.creationDate = creationDate;
-        this.balance = balance;
-        this.client=client1;
-
-
-    }
-
-
 }

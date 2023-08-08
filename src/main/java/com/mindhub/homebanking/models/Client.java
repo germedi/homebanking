@@ -18,9 +18,8 @@ public class Client {
     private String password;
 
     //las cuentas del cliente
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)//uno a muchos
-    Set<Account> accounts = new HashSet<>(); //inicializar lista vacia
-
+    @OneToMany(mappedBy="client", fetch= FetchType.EAGER)
+    Set<Account> accounts = new HashSet<>();
     public Client() {
     }
 
@@ -29,6 +28,8 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+
+
     }
     public long getId() {
         return id;
@@ -66,7 +67,15 @@ public class Client {
         this.password = password;
     }
 
-
-
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
+    public void addAccount(Account account){
+        account.setClient(this);
+        accounts.add(account);
+    }
 }
 
