@@ -1,52 +1,43 @@
 package com.mindhub.homebanking.DTO;
 
-import com.mindhub.homebanking.models.Transactions;
-import com.mindhub.homebanking.models.TransactionsType;
+import com.mindhub.homebanking.models.Transaction;
+import com.mindhub.homebanking.models.TransactionType;
 
-import javax.transaction.Transaction;
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 
 public class TransactionDTO {
-    private long id;
-    private TransactionsType type;
-    private Double amount;
+    private Long id;
+    private TransactionType type;
+    private double amount;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
 
-    public TransactionDTO() {
+    public TransactionDTO(Transaction transaction) {
+        this.id= transaction.getId();
+        this.type=transaction.getType();
+        this.amount=transaction.getAmount();
+        this.description=transaction.getDescription();
+        this.date=transaction.getDate();
+
     }
-
-    public TransactionDTO(Transactions transactions) {
-        this.id = transactions.getId();
-        this.amount = transactions.getAmount();
-        this.description = transactions.getDescription();
-        this.date =transactions.getDate();
-        this.type=transactions.getType();
-    }
-
-
-    public TransactionsType getType() {
-        return type;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public TransactionType getType() {
+        return type;
     }
 
+    public double getAmount() {
+        return amount;
+    }
 
     public String getDescription() {
         return description;
     }
 
-
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
-
 
 }

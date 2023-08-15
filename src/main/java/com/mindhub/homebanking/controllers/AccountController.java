@@ -2,7 +2,6 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.DTO.AccountDTO;
 import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +15,6 @@ import java.util.stream.Collectors;
 public class AccountController {
     @Autowired  // Inyecta un objeto AccountRepository
     AccountRepository accountRepository;
-    @Autowired
-    ClientRepository clientRepository;  // Inyecta un objeto ClientRepository
 
     // Mapea la URL "/api/accounts" a este método y devuelve una lista de objetos AccountDTO
     @RequestMapping("/accounts")
