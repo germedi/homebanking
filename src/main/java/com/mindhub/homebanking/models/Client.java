@@ -17,12 +17,17 @@ public class Client {
     private String lastName; // Campo que representa el apellido del cliente
     private String email; // Campo que representa el correo electrónico del cliente
 
-    @OneToMany(mappedBy="client", fetch=FetchType.EAGER) // Anotación que indica que esta entidad tiene una relación "uno a muchos" con otra entidad
+    @OneToMany(mappedBy="client", fetch=FetchType.EAGER) //  indica que esta entidad tiene una relación "uno a muchos" con otra entidad
     private Set<Account> accounts = new HashSet<>(); // Campo que representa las cuentas asociadas a este cliente
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER) // Anotación que indica que esta entidad tiene una relación "uno a muchos" con otra entidad
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER) //  indica que esta entidad tiene una relación "uno a muchos" con otra entidad
     private Set<ClientLoan> loans = new HashSet<>(); // Campo que representa los préstamos asociados a este cliente
-   //constructores
+
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)//relacion de uno a muchos client - cards
+    private Set<Card> cards = new HashSet<>();
+
+    //constructores
     public Client () {  }
 
     public Client (String firstName, String lastName, String email) {
@@ -83,9 +88,21 @@ public class Client {
     public void setLoans(Set<ClientLoan> loans) {
         this.loans = loans;
     }
+    public Set<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(Set<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void addCards(Card card){
+        card.setClient(this);
+        cards.add(card);
+    }
 }
 
    /* La clase  representa a un cliente.
    Contiene información básica del cliente como su nombre, apellido y correo electrónico,
-    así como también las cuentas y préstamos asociados a este cliente.
+    así como también las cuentas y préstamos y tarjetas asociados a este cliente.
      */

@@ -1,6 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.DTO.AccountDTO;
+import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +28,7 @@ public class AccountController {
     @RequestMapping("/accounts/{id}")
     public AccountDTO accountDTO(@PathVariable Long id) {
         // Crea un objeto AccountDTO a partir del objeto Account con el id
-        AccountDTO accountId = new AccountDTO(accountRepository.findById(id).orElse(null));
-        return accountId;
+        return new AccountDTO(accountRepository.findById(id).orElse(null));
+
     }
 }

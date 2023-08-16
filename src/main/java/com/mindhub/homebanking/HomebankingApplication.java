@@ -22,7 +22,7 @@ public class HomebankingApplication {
 	@Bean // Anotación que indica que este método devuelve un objeto que debe ser registrado como un bean en el contenedor de Spring
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository,
 									  TransactionRepository transactionRepository, LoanRepository loanRepository,
-									  ClientLoansRepository clientLoansRepository)
+									  ClientLoansRepository clientLoansRepository, CardRepository cardRepository)
 	{
 		return (args) -> // Devuelve un objeto de tipo CommandLineRunner que ejecuta un conjunto de tareas al inicio de la aplicación
 		{
@@ -86,11 +86,27 @@ public class HomebankingApplication {
 
 			//crea  cliente en 1 sola línea!
 			clientRepository.save(new Client("Juan", "Perez", "PerezJuan@gmail.com")); // Crea y guarda un nuevo objeto "Client" en la base de datos
+
+			// Crear dos instancias de la clase Card para cada cliente melba
+			Card card1 = new Card(CardType.DEBIT, "1223-4512-3456-8565", 542, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDate.now().plusYears(5), CardColor.GOLD);
+			Card card2 = new Card(CardType.CREDIT, "5522-5678-9234-4632", 325, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDate.now().plusYears(5), CardColor.TITANIUM);
+
+			// Asociar cada instancia de Card con el objeto Client correspondiente
+			card1.setClient(client);
+			card2.setClient(client);
+
+			// Guardar cada instancia de Card en la base de datos utilizando el repositorio cardRepository
+			cardRepository.save(card1);
+			cardRepository.save(card2);
+
+			// Agregar cada instancia de Card a la lista de cards del objeto Client correspondiente
+			client.addCards(card1);
+			client.addCards(card2);
+
 		};
 	}
 
 }
-
 	/* El código crea una aplicación Spring Boot que inicializa una base de datos y guarda algunos objetos
 	(clientes, cuentas bancarias, transacciones y préstamos) en ella. El método initData() se ejecuta al
 	inicio de la aplicación y realiza las tareas mencionadas.
