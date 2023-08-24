@@ -19,16 +19,11 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                // Permite el acceso a ciertas rutas a todos los usuarios
-                .antMatchers("web/index.html", "web/style.css", "web/log.js", "web/img/**", "/api/login").permitAll()
-                // Permite el acceso a ciertas rutas a todos los usuarios que hagan una solicitud POST a /api/clients o /api/login
-                .antMatchers(HttpMethod.POST,  "/api/login").permitAll()
-                // Permite el acceso a ciertas rutas a usuarios con el rol "CLIENT" que hagan una solicitud POST a /api/clients/current/account o /api/transactions
-                .antMatchers(HttpMethod.POST, "/api/clients", "/api/clients/current/account", "/api/transactions").hasAuthority("ADMIN")
-                // Permite el acceso a ciertas rutas a usuarios con el rol "CLIENT" que hagan una solicitud DELETE a /api/clients/current/cards/**
-                .antMatchers(HttpMethod.DELETE, "/api/clients/current/cards/**").hasAuthority("CLIENT")
-                // Permite el acceso a ciertas rutas a usuarios con el rol "ADMIN" que hagan una solicitud GET a /manager.html, /manager.js, /rest/** o /api/clients
-                .antMatchers("web/manager.html", "web/manager.js", "/rest/**", "/api/clients").hasAuthority("ADMIN");
+                .antMatchers( "/web/index.html", "/web/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/login", "/api/logout", "/api/clients").permitAll()
+                .antMatchers("/api/clients/current", "/api/**").hasAuthority("CLIENT")
+                .antMatchers("/web/accounts.html").hasAnyAuthority("CLIENT", "ADMIN")
+                .anyRequest().denyAll(); // si no está acá no puede ingresar?
 
         // Define un recurso POST para hacer el login
         http.formLogin()

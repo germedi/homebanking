@@ -25,18 +25,19 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
         auth.userDetailsService(email-> {
             // Busca al cliente en la base de datos utilizando su correo electrónico
             Client client = clientRepository.findByEmail(email);
-            if (client != null) { // Si el cliente existe en la base de datos, se procede con la autenticación
-                if (client.isAdmin()) { // Si el cliente tiene el rol de "ADMIN", se le asigna el rol de "ADMIN"
-                    // Crea un objeto User con el correo electrónico y la contraseña del cliente, y se le asigna el rol de "ADMIN"
-                    return new User(client.getEmail(), client.getPassword(), AuthorityUtils.createAuthorityList("ADMIN"));
-                } else { // Si el cliente no tiene el rol de "ADMIN", se le asigna el rol de "CLIENT"
-                    // Crea un objeto User con el correo electrónico y la contraseña del cliente, y se le asigna el rol de "CLIENT"
-                    return new User(client.getEmail(), client.getPassword(), AuthorityUtils.createAuthorityList("CLIENT"));
+            if (client != null) {
+                if (client.getEmail().equalsIgnoreCase("gerardomedinav@gmail.com")) {
+                    return new User(client.getEmail(), client.getPassword()
+                            , AuthorityUtils.createAuthorityList("ADMIN"));
+                } else {
+                    return new User(client.getEmail(), client.getPassword()
+                            , AuthorityUtils.createAuthorityList("CLIENT"));
                 }
-            } else { // Si el correo electrónico del cliente no existe en la base de datos, se lanza una excepción indicando que el usuario es desconocido
+            } else {
                 throw new UsernameNotFoundException("Unknown user: " + email);
             }
         });
+
     }
 
     // Define un Bean que encripta la contraseña utilizando PasswordEncoderFactories

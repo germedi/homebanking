@@ -15,9 +15,10 @@ public class Client {
 
     private String firstName; // Campo que representa el nombre del cliente
     private String lastName; // Campo que representa el apellido del cliente
+    @Column(unique = true)//campo unico no se puede repetir en la base de datos
     private String email; // Campo que representa el correo electrónico del cliente
     private String password;// campo de la contraseña del cliente
-    private Boolean admin;// true o false // es o no admin
+
 
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER) //  indica que esta entidad tiene una relación "uno a muchos" con otra entidad
     private Set<Account> accounts = new HashSet<>(); // Campo que representa las cuentas asociadas a este cliente
@@ -32,12 +33,12 @@ public class Client {
     //constructores
     public Client () {  }
 
-    public Client (String firstName, String lastName, String email, String password, Boolean admin) {
+    public Client (String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password= password;
-        this.admin=admin;
+
 
 
     }
@@ -92,9 +93,7 @@ public class Client {
         return accounts;
     }
 
-    public Boolean getAdmin() {
-        return admin;
-    }
+
 
     public void addAccount(Account account)
     {
@@ -117,13 +116,9 @@ public class Client {
         this.cards = cards;
     }
 
-    public boolean isAdmin() {
-        return admin;
-    }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
+
+
 
     public void addCards(Card card){
         card.setClient(this);

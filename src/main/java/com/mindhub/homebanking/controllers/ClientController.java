@@ -42,7 +42,7 @@ public class ClientController {
             , @RequestParam String lastName
             , @RequestParam String email
             , @RequestParam String password
-            , @RequestParam Boolean admin)
+           )
     {
         if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.isBlank()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
@@ -52,7 +52,7 @@ public class ClientController {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
 
-        clientRepository.save(new Client(firstName, lastName, email, passwordEncoder.encode(password),admin));
+        clientRepository.save(new Client(firstName, lastName, email, passwordEncoder.encode(password)));
         return new ResponseEntity<>("Client created", HttpStatus.CREATED);
     }
     @GetMapping("/clients/current")

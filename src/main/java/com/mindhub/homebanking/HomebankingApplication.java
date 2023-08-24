@@ -31,7 +31,7 @@ public class HomebankingApplication {
 		return (args) -> // Devuelve un objeto de tipo CommandLineRunner que ejecuta un conjunto de tareas al inicio de la aplicación
 		{
 			//instancia del primer client
-			Client client = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("123"), false); // Crea un nuevo objeto "Client" con los parámetros especificados
+			Client client = new Client("Melba", "Morel", "melba@mindhub.com", passwordEncoder.encode("123")); // Crea un nuevo objeto "Client" con los parámetros especificados
 			clientRepository.save(client); // Guarda el objeto "Client" en la base de datos
 
 			//intanciar  las cuentas: account and account1
@@ -82,14 +82,14 @@ public class HomebankingApplication {
 			clientLoansRepository.save(clientLoan1); // Guarda el objeto "ClientLoan" en la base de datos
 
 			//Agrego  clientes nuevos
-			Client client1 = new Client("Gerardo", "Medina", "gerardomedinav@gmail.com",passwordEncoder.encode("123"),true); // Crea un nuevo objeto "Client" con los parámetros especificados
+			Client client1 = new Client("Gerardo", "Medina", "gerardomedinav@gmail.com",passwordEncoder.encode("123")); // Crea un nuevo objeto "Client" con los parámetros especificados
 			clientRepository.save(client1); // Guarda el objeto "Client" en la base de datos
 
-			Client client2 = new Client("Sandra", "Gomez", "sandrag@gmail.com", passwordEncoder.encode("123"),false); // Crea un nuevo objeto "Client" con los parámetros especificados
+			Client client2 = new Client("Sandra", "Gomez", "sandrag@gmail.com", passwordEncoder.encode("123")); // Crea un nuevo objeto "Client" con los parámetros especificados
 			clientRepository.save(client2); // Guarda el objeto "Client" en la base de datos
 
 			//crea  cliente en 1 sola línea!
-			clientRepository.save(new Client("Juan", "Perez", "PerezJuan@gmail.com", passwordEncoder.encode("123"), true)); // Crea y guarda un nuevo objeto "Client" en la base de datos
+			clientRepository.save(new Client("Juan", "Perez", "PerezJuan@gmail.com", passwordEncoder.encode("123"))); // Crea y guarda un nuevo objeto "Client" en la base de datos
 
 			// Crear dos instancias de la clase Card para cada cliente melba
 			Card card1 = new Card(CardType.DEBIT, "1223-4512-3456-8565", 542, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDate.now().plusYears(5), CardColor.GOLD);
