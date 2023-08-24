@@ -16,6 +16,8 @@ public class Client {
     private String firstName; // Campo que representa el nombre del cliente
     private String lastName; // Campo que representa el apellido del cliente
     private String email; // Campo que representa el correo electrónico del cliente
+    private String password;// campo de la contraseña del cliente
+    private Boolean admin;// true o false // es o no admin
 
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER) //  indica que esta entidad tiene una relación "uno a muchos" con otra entidad
     private Set<Account> accounts = new HashSet<>(); // Campo que representa las cuentas asociadas a este cliente
@@ -30,14 +32,29 @@ public class Client {
     //constructores
     public Client () {  }
 
-    public Client (String firstName, String lastName, String email) {
+    public Client (String firstName, String lastName, String email, String password, Boolean admin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password= password;
+        this.admin=admin;
+
+
     }
+
+
+
     //metodos para acceder a los campos de la clase
     public long getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName()
@@ -75,6 +92,10 @@ public class Client {
         return accounts;
     }
 
+    public Boolean getAdmin() {
+        return admin;
+    }
+
     public void addAccount(Account account)
     {
         account.setClient(this);  // Asigna este cliente a la cuenta especificada y agrega la cuenta al conjunto de cuentas del cliente
@@ -94,6 +115,14 @@ public class Client {
 
     public void setCards(Set<Card> cards) {
         this.cards = cards;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public void addCards(Card card){

@@ -18,6 +18,8 @@ public class ClientDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private  Boolean admin;
+
     private Set<AccountDTO> accounts = new HashSet<>();
 
     private Set<ClientLoanDTO> loans = new HashSet<>();
@@ -30,6 +32,7 @@ public class ClientDTO {
         this.firstName = client.getFirstName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
+
 
         this.accounts = client
                 .getAccounts()
@@ -69,6 +72,8 @@ public class ClientDTO {
     {
         return email;
     }
+
+
 
     public Set<AccountDTO> getAccounts()
     {
