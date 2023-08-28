@@ -18,12 +18,15 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
     // Configura la autorización de solicitudes HTTP
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Si quiero acceder con ("/web/index.html", "SIN ROL") puedo hacerlo, pero
+        // si cambio el orden y pongo esta regla primero '.antMatchers("/**").hasAuthority("CLIENT")'
+        // me va a rechazar la autorización, por que analiza primero esa linea.
         http.authorizeRequests()
-                .antMatchers( "/web/index.html", "/web/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/login", "/api/logout", "/api/clients").permitAll()
-                .antMatchers("/api/clients/current", "/api/**").hasAuthority("CLIENT")
-                .antMatchers("/web/accounts.html").hasAnyAuthority("CLIENT", "ADMIN")
-                .anyRequest().denyAll(); // si no está acá no puede ingresar?
+                .antMatchers("/web/index.html", "/web/css/**", "/web/img/**", "/web/js/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/login", "/api/clients").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
+                .antMatchers("/**").hasAnyAuthority( "ADMIN");
 
         // Define un recurso POST para hacer el login
         http.formLogin()

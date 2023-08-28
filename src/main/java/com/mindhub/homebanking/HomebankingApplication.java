@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootApplication // Anotación que indica que esta clase es la clase principal de la aplicación Spring Boot
@@ -35,11 +36,11 @@ public class HomebankingApplication {
 			clientRepository.save(client); // Guarda el objeto "Client" en la base de datos
 
 			//intanciar  las cuentas: account and account1
-			Account account = new Account("VIN001", LocalDate.now(), 5000); // Crea un nuevo objeto "Account" con los parámetros especificados
+			Account account = new Account("VIN001", LocalDateTime.now(), 5000); // Crea un nuevo objeto "Account" con los parámetros especificados
 			client.addAccount(account); // Agrega la cuenta al cliente
 			accountRepository.save(account); // Guarda la cuenta en la base de datos
 
-			Account account1 = new Account("VIN002", LocalDate.now().plusDays(1), 7500); // Crea un nuevo objeto "Account" con los parámetros especificados
+			Account account1 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500); // Crea un nuevo objeto "Account" con los parámetros especificados
 			client.addAccount(account1); // Agrega la cuenta al cliente
 			accountRepository.save(account1); // Guarda la cuenta en la base de datos
 
@@ -92,8 +93,8 @@ public class HomebankingApplication {
 			clientRepository.save(new Client("Juan", "Perez", "PerezJuan@gmail.com", passwordEncoder.encode("123"))); // Crea y guarda un nuevo objeto "Client" en la base de datos
 
 			// Crear dos instancias de la clase Card para cada cliente melba
-			Card card1 = new Card(CardType.DEBIT, "1223-4512-3456-8565", 542, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDate.now().plusYears(5), CardColor.GOLD);
-			Card card2 = new Card(CardType.CREDIT, "5522-5678-9234-4632", 325, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDate.now().plusYears(5), CardColor.TITANIUM);
+			Card card1 = new Card(CardType.DEBIT, "1223-4512-3456-8565", 542, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDateTime.now().plusYears(5), CardColor.GOLD);
+			Card card2 = new Card(CardType.CREDIT, "5522-5678-9234-4632", 325, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDateTime.now().plusYears(5), CardColor.TITANIUM);
 
 			// Asociar cada instancia de Card con el objeto Client correspondiente
 			card1.setClient(client);

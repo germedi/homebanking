@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Card {
@@ -19,7 +20,7 @@ public class Card {
     private String number;
     private int cvv;
     private LocalDate fromDate;
-    private LocalDate thruDate;
+    private LocalDateTime thruDate;
 
     // Asociación ManyToOne con la clase Client mediante el atributo client_id
     @ManyToOne(fetch = FetchType.EAGER)
@@ -31,7 +32,7 @@ public class Card {
     }
 
     // Constructor con parámetros
-    public Card(CardType type, String number, int cvv, String cardHolder, LocalDate fromDate, LocalDate thruDate, CardColor color) {
+    public Card(CardType type, String number, int cvv, String cardHolder, LocalDate fromDate, LocalDateTime thruDate, CardColor color) {
         this.type = type;
         this.number = number;
         this.cvv = cvv;
@@ -98,11 +99,11 @@ public class Card {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getThruDate() {
+    public LocalDateTime getThruDate() {
         return thruDate;
     }
 
-    public void setThruDate(LocalDate thruDate) {
+    public void setThruDate(LocalDateTime thruDate) {
         this.thruDate = thruDate;
     }
 

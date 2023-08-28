@@ -2,6 +2,7 @@ package com.mindhub.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,8 +14,10 @@ public class Account {
     private long id; // Campo que representa la clave primaria de la entidad
 
     private String number; // Campo que representa el número de la cuenta
-    private LocalDate creationDate; // Campo que representa la fecha de creación de la cuenta
+    private LocalDateTime creationDate; // Campo que representa la fecha de creación de la cuenta
     private double balance; // Campo que representa el saldo de la cuenta
+
+
 
     @ManyToOne(fetch = FetchType.EAGER) // Anotación que indica que esta entidad tiene una relación "muchos a uno" con otra entidad
     @JoinColumn(name="clientId") // Anotación que indica el nombre de la columna que representa la clave foránea en la tabla de esta entidad
@@ -26,9 +29,9 @@ public class Account {
     public Account() {
     }
     //constructor de cada atributo
-    public Account(String number, LocalDate creationDate, double balance) {
+    public Account(String number, LocalDateTime date, double balance) {
         this.number = number;
-        this.creationDate = creationDate;
+        this.creationDate = date;
         this.balance = balance;
     }
     //getter y setter
@@ -47,13 +50,11 @@ public class Account {
         this.number = number;
     }
 
-    public LocalDate getCreationDate()
-    {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate)
-    {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
