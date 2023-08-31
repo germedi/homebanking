@@ -55,15 +55,15 @@ public class TransactionControllers {
         // Obtener el cliente autenticado
         Client current = clientRepository.findByEmail(authentication.getName());
         // Obtener la cuenta de origen
-        Account originAccount = accountRepository.findByNumber(toAccountNumber);
+        Account originAccount = accountRepository.findByNumber(fromAccountNumber);
         // Obtener la cuenta de destino
-        Account destinyAccount = accountRepository.findByNumber(fromAccountNumber);
+        Account destinyAccount = accountRepository.findByNumber(toAccountNumber);
         // Obtener la fecha y hora actual
         LocalDateTime now = LocalDateTime.now();
 
-        // Verificar que los campos no estén vacíos
-        if (amount.isNaN() || amount == 0 || description.isEmpty() || toAccountNumber.isEmpty() || fromAccountNumber.isEmpty()) {
-            result = new ResponseEntity<>("Los campos no pueden estar vacíos", HttpStatus.FORBIDDEN);
+        // Verificar que los campos no estén vacíos y que el monto a transferir no sea negativo
+         if (amount.isNaN() || amount <= 0 || description.isEmpty() || toAccountNumber.isEmpty() || fromAccountNumber.isEmpty()) {
+            result = new ResponseEntity<>("Los campos no pueden estar vacíos y el monto a transferir debe ser mayor que cero", HttpStatus.FORBIDDEN);
         }
         // Verificar que las cuentas no estén vacías y sean diferentes
         else if (toAccountNumber.equals(fromAccountNumber)) {

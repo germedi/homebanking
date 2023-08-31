@@ -63,12 +63,12 @@ public class AccountController {
         // Generar número aleatorio de 4 dígitos y crear número de cuenta
         Random rand = new Random();
         int random = rand.nextInt(9000) + 1000;
-        String number = "VIN-" + random;
+        String number = "VIN" + random;
 
         // Verificar si el número de cuenta ya existe en la base de datos
         while (accountRepository.findByNumber(number) != null && !accountRepository.findByNumber(number).getNumber().equals(number)) {
             random = rand.nextInt(9000) + 1000;
-            number = "VIN-" + random;
+            number = "VIN" + random;
         }
 
         // Crear objeto Account
