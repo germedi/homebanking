@@ -26,7 +26,22 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/login", "/api/clients").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
-                .antMatchers("/**").hasAnyAuthority( "ADMIN");
+                .antMatchers(HttpMethod.GET, "/api/clients/current").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST, "/api/transfers").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/api/clients/current/accounts").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/api/Transfers").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAuthority("CLIENT")///accounts/{id}
+                .antMatchers(HttpMethod.POST, "/api/transactions/**").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/api/transaction/{id}").hasAuthority("CLIENT")
+                .antMatchers("/web/accounts.html").hasAuthority("CLIENT") //
+                .antMatchers("/web/account.html").hasAuthority("CLIENT") //
+                .antMatchers("/web/transfers.html").hasAuthority("CLIENT") ///web/transfers.html
+                .antMatchers("/web/cards.html").hasAuthority("CLIENT") ///web/cards.html
+                .antMatchers("/web/loan-application.html").hasAuthority("CLIENT")
+                .antMatchers("/h2-console").hasAuthority("ADMIN")
+                .antMatchers("/rest/**").hasAuthority("ADMIN")
+                .antMatchers("/**").hasAnyAuthority("ADMIN");
+
 
         // Define un recurso POST para hacer el login
         http.formLogin()

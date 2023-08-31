@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity // Indica que la clase es una entidad JPA
 public class Transaction {
     //Esta clase representa una transacción financiera y tiene los siguientes atributos
@@ -16,17 +18,17 @@ public class Transaction {
     private TransactionType type; // Tipo de transacción (puede ser DEPOSIT o WITHDRAWAL)
     private double amount; // Cantidad de dinero involucrada en la transacción
     private String description; // Descripción de la transacción
-    private LocalDate date; // Fecha en que se realizó la transacción
+    private LocalDateTime date; // Fecha en que se realizó la transacción
 
     @ManyToOne(fetch = FetchType.EAGER) // Especifica que hay una relación Many-to-One entre la entidad Transaction y la entidad Account
     @JoinColumn(name="accountId") // Especifica el nombre de la columna en la tabla de transacciones que contiene el ID de la cuenta bancaria correspondiente
     private Account account; // Cuenta bancaria a la que pertenece la transacción
 
-    public Transaction() // Constructor vacío
-    {
+    public Transaction() {
+        // Constructor por defecto sin argumentos
     }
 
-    public Transaction(TransactionType type, double amount, String description, LocalDate date) // Constructor que recibe los valores de los atributos como parámetros y los asigna a los correspondientes atributos de la clase
+    public Transaction(TransactionType type, double amount, String description, LocalDateTime date) // Constructor que recibe los valores de los atributos como parámetros y los asigna a los correspondientes atributos de la clase
     {
         this.type = type;
         this.amount = amount;
@@ -66,11 +68,11 @@ public class Transaction {
         this.description = description;
     }
 
-    public LocalDate getDate() { // Método getter para el atributo date
+    public LocalDateTime getDate() { // Método getter para el atributo date
         return date;
     }
 
-    public void setDate(LocalDate date) { // Método setter para el atributo date
+    public void setDate(LocalDateTime date) { // Método setter para el atributo date
         this.date = date;
     }
 

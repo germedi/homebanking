@@ -45,24 +45,24 @@ public class HomebankingApplication {
 			accountRepository.save(account1); // Guarda la cuenta en la base de datos
 
 			//instanciar  transacciones en la account VIN001 de client
-			Transaction transaction = new Transaction(TransactionType.CREDIT, 600, "Salary", LocalDate.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
+			Transaction transaction = new Transaction(TransactionType.CREDIT, 600, "Salary", LocalDateTime.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
 			account.addTransaction(transaction); // Agrega la transacción a la cuenta
 			transactionRepository.save(transaction); // Guarda la transacción en la base de datos
 
-			Transaction transaction1 = new Transaction(TransactionType.CREDIT, 300, "Sales", LocalDate.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
+			Transaction transaction1 = new Transaction(TransactionType.CREDIT, 300, "Sales", LocalDateTime.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
 			account.addTransaction(transaction1); // Agrega la transacción a la cuenta
 			transactionRepository.save(transaction1); // Guarda la transacción en la base de datos
 
-			Transaction transaction2 = new Transaction(TransactionType.DEBIT, 100, "Loan Payment", LocalDate.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
+			Transaction transaction2 = new Transaction(TransactionType.DEBIT, 100, "Loan Payment", LocalDateTime.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
 			account.addTransaction(transaction2); // Agrega la transacción a la cuenta
 			transactionRepository.save(transaction2); // Guarda la transacción en la base de datos
 
 			//instanciar transacciones a la acocunt1
-			Transaction transaction3 = new Transaction(TransactionType.CREDIT, 240, "Sales", LocalDate.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
+			Transaction transaction3 = new Transaction(TransactionType.CREDIT, 240, "Sales", LocalDateTime.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
 			account1.addTransaction(transaction3); // Agrega la transacción a la cuenta1
 			transactionRepository.save(transaction3); // Guarda la transacción en la base de datos
 
-			Transaction transaction4 = new Transaction(TransactionType.CREDIT, 300, "Sales", LocalDate.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
+			Transaction transaction4 = new Transaction(TransactionType.CREDIT, 300, "Sales", LocalDateTime.now()); // Crea un nuevo objeto "Transaction" con los parámetros especificados
 			account1.addTransaction(transaction4); // Agrega la transacción a la cuenta1
 			transactionRepository.save(transaction4); // Guarda la transacción en la base de datos
 
