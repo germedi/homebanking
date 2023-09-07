@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity // Anotación que indica que esta clase es una entidad de la base de datos
 public class ClientLoan {
@@ -22,6 +23,7 @@ public class ClientLoan {
     @ManyToOne(fetch = FetchType.EAGER) // Anotación que indica que esta entidad tiene una relación "muchos a uno" con otra entidad
     @JoinColumn(name = "loanId") // Anotación que indica el nombre de la columna que representa la clave foránea en la tabla de esta entidad
     private Loan loan; // Campo que representa el préstamo asociado a este cliente
+    private LocalDateTime dateTime;
 
     public ClientLoan() {
     }
@@ -31,6 +33,9 @@ public class ClientLoan {
         this.payments = payments;
         this.client = client;
         this.loan = loan;
+    }
+
+    public ClientLoan(LocalDateTime now, double amount, Loan loan, Client client) {
     }
 
     public long getId() {
@@ -67,6 +72,10 @@ public class ClientLoan {
 
     public void setLoan(Loan loan) {
         this.loan = loan;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 }
 /* La clase ClientLoan representa un préstamo asociado a un cliente en la base de datos.

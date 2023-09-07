@@ -2,56 +2,43 @@ package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.ClientLoan;
 
+import java.time.LocalDateTime;
+
 public class ClientLoanDTO {
+        private Long id;
+        private Long loanId;
 
-    private long id;
-    private long loanId;
-    private String name;
-    private double amount;
-    private int payments;
+        private String name;
+        private Integer payments;
+        private Double amount;
 
 
-    public ClientLoanDTO(ClientLoan clientLoan) {
-        this.id = clientLoan.getId();
-        this.loanId = clientLoan.getLoan().getId();
-        this.name = clientLoan.getLoan().getName();
-        this.amount = clientLoan.getAmount();
-        this.payments = clientLoan.getPayments();
+        public ClientLoanDTO() {
+        }
+
+        public ClientLoanDTO(ClientLoan clientLoan){
+            this.id = clientLoan.getId();
+            this.loanId = clientLoan.getLoan().getId();
+            this.name = clientLoan.getLoan().getName();
+            this.payments = clientLoan.getPayments();
+            this.amount = clientLoan.getAmount();
+
+        }
+
+        public Long getId() {
+            return id;
+        }
+        public Long getLoanId() {
+            return loanId;
+        }
+        public String getName() {
+            return name;
+        }
+        public Integer getPayments() {
+            return payments;
+        }
+        public Double getAmount() {
+            return amount;
+        }
+
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public long getLoanId() {
-        return loanId;
-    }
-
-    public void setLoanId(long loanId) {
-        this.loanId = loanId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public int getPayments() {
-        return payments;
-    }
-
-    public void setPayments(int payments) {
-        this.payments = payments;
-    }
-}

@@ -33,13 +33,19 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAuthority("CLIENT")///accounts/{id}
                 .antMatchers(HttpMethod.POST, "/api/transactions/**").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.GET, "/api/transaction/{id}").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/clients/{id}/loans").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
+                .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT") //
                 .antMatchers("/web/account.html").hasAuthority("CLIENT") //
                 .antMatchers("/web/transfers.html").hasAuthority("CLIENT") ///web/transfers.html
                 .antMatchers("/web/cards.html").hasAuthority("CLIENT") ///web/cards.html
+                .antMatchers("/web/create-cards.html").hasAuthority("CLIENT")
                 .antMatchers("/web/loan-application.html").hasAuthority("CLIENT")
                 .antMatchers("/h2-console").hasAuthority("ADMIN")
+                .antMatchers("/h2-console").hasAuthority("CLIENT")
                 .antMatchers("/rest/**").hasAuthority("ADMIN")
+                .antMatchers("/h2-console/**").hasAnyAuthority("ADMIN", "CLIENT")
                 .antMatchers("/**").hasAnyAuthority("ADMIN");
 
 

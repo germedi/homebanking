@@ -3,7 +3,6 @@ package com.mindhub.homebanking.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity // Indica que la clase es una entidad JPA
@@ -24,8 +23,11 @@ public class Transaction {
     @JoinColumn(name="accountId") // Especifica el nombre de la columna en la tabla de transacciones que contiene el ID de la cuenta bancaria correspondiente
     private Account account; // Cuenta bancaria a la que pertenece la transacción
 
-    public Transaction() {
+    public Transaction(Account account, TransactionType credit, Double amount, String s, LocalDateTime now) {
         // Constructor por defecto sin argumentos
+    }
+
+    public Transaction() {
     }
 
     public Transaction(TransactionType type, double amount, String description, LocalDateTime date) // Constructor que recibe los valores de los atributos como parámetros y los asigna a los correspondientes atributos de la clase
@@ -34,6 +36,14 @@ public class Transaction {
         this.amount = amount;
         this.description = description;
         this.date = date;
+    }
+
+
+
+    public Transaction(Double amount, String description, LocalDateTime now, Account originAccount, Account destinyAccount) {
+    }
+
+    public Transaction(LocalDateTime now, double amount, String s, TransactionType transactionType, Account account) {
     }
 
     public Long getId() { // Método getter para el atributo id

@@ -66,13 +66,13 @@ public class HomebankingApplication {
 			account1.addTransaction(transaction4); // Agrega la transacción a la cuenta1
 			transactionRepository.save(transaction4); // Guarda la transacción en la base de datos
 
-			Loan loan = new Loan("Hipotecary Loan", 500000, List.of(12, 24, 36,48,60)); // Crea un nuevo objeto "Loan" con los parámetros especificados
+			Loan loan = new Loan("Hipotecary Loan", 500000.0, List.of(12, 24, 36,48,60)); // Crea un nuevo objeto "Loan" con los par&aacute;metros especificados
 			loanRepository.save(loan); // Guarda el objeto "Loan" en la base de datos
 
-			Loan loan1 = new Loan("Personal Loan", 100000, List.of(24, 12, 24)); // Crea un nuevo objeto "Loan" con los parámetros especificados
+			Loan loan1 = new Loan("Personal Loan", 100000.0, List.of(24, 12, 24)); // Crea un nuevo objeto "Loan" con los parámetros especificados
 			loanRepository.save(loan1); // Guarda el objeto "Loan" en la base de datos
 
-			Loan loan2 = new Loan("Automotive Loan", 300000, List.of(6, 12, 24,36)); // Crea un nuevo objeto "Loan" con los parámetros especificados
+			Loan loan2 = new Loan("Automotive Loan", 300000.0, List.of(6, 12, 24,36)); // Crea un nuevo objeto "Loan" con los parámetros especificados
 			loanRepository.save(loan2); // Guarda el objeto "Loan" en la base de datos
 
 			//PRUEBA de clientLoan
