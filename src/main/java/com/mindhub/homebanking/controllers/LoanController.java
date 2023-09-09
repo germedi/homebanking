@@ -35,10 +35,12 @@ public class LoanController {
     private ClientRepository clientRepository;
     @Autowired
     private ClientLoanRepository clientLoanRepository;
+    @Autowired
+    LoanService loanService;
 
     @GetMapping("/loans")
     public List<LoanDTO> getAll() {
-        return loanRepository.findAll().stream().map(LoanDTO::new).collect(Collectors.toList());
+        return loanService.getLoan().stream().map(LoanDTO::new).collect(Collectors.toList());
     }
     @PostMapping("/loans")
     public ResponseEntity<Object> createLoans(@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication) {

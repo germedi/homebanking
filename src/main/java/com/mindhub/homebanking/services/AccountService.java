@@ -13,11 +13,13 @@ public interface AccountService {
     public List<AccountDTO> getAccounts();
     public AccountDTO getTransactionById(long id);
     public Client clientAuthentication(Authentication authentication);
+    public Account getAccountByNumber(String number);
+
+
 
     public void save(Account account);
 
     public <string> Optional<Account> findByNumber(String number);
-
 
 
     public Set<AccountDTO> getAccountsCurrent(Authentication authentication);

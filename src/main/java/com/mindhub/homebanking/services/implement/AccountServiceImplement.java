@@ -34,6 +34,12 @@ public class AccountServiceImplement implements AccountService {
                 .collect(Collectors.toList());
         return converToListDto;
     }
+    @Override
+    public Account getAccountByNumber(String number) {
+        return accountRepository.findByNumber(number);
+    }
+
+
 
     @Override
     public AccountDTO getTransactionById(long id) {

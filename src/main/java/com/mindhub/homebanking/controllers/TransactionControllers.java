@@ -5,6 +5,9 @@ import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +23,14 @@ import java.time.LocalDateTime;
 @RequestMapping("/api")
 public class TransactionControllers {
 
-    // Inyectar el repositorio de cuentas
-    @Autowired
-    private AccountRepository accountRepository;
 
-    // Inyectar el repositorio de transacciones
     @Autowired
-    private TransactionRepository transactionRepository;
+    ClientService clientService;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    TransactionService transactionService;
 
-    // Inyectar el repositorio de clientes
-    @Autowired
-    private ClientRepository clientRepository;
 
 
     /* Anotación para indicar que se debe realizar la transacción dentro de una transacción de base de datos
@@ -38,7 +38,7 @@ public class TransactionControllers {
     ejecutado dentro de una transacción de base de datos. Esto significa que todas las operaciones realizadas
     dentro del método, como las consultas y las actualizaciones de la base de datos, se ejecutarán como una
     sola transacción.
-    En el código que me proporcionaste, la anotación @Transactional se utiliza en el método transaction()
+    a anotación @Transactional se utiliza en el método transaction()
     para asegurarse de que todas las operaciones realizadas dentro del método, como la creación de transacciones
     y la actualización de saldos de cuentas, se realicen dentro de una única transacción de base de datos.
     Esto garantiza que todas las operaciones se realicen correctamente o se deshagan en caso de que ocurra algún error.
@@ -54,11 +54,11 @@ public class TransactionControllers {
     ) {
         ResponseEntity<Object> result;
         // Obtener el cliente autenticado
-        Client current = clientRepository.findByEmail(authentication.getName());
+        Client current = clientService.getClientByEmail(authentication.getName());
         // Obtener la cuenta de origen
-        Account originAccount = accountRepository.findByNumber(fromAccountNumber);
+        Account originAccount = accountService.getAccountByNumber(fromAccountNumber);
         // Obtener la cuenta de destino
-        Account destinyAccount = accountRepository.findByNumber(toAccountNumber);
+        Account destinyAccount = accountService.getAccountByNumber(toAccountNumber);
         // Obtener la fecha y hora actual
         LocalDateTime now = LocalDateTime.now();
 
@@ -97,11 +97,11 @@ public class TransactionControllers {
             // Actualizar el saldo de la cuenta de destino
             destinyAccount.setBalance(destinyAccount.getBalance() + amount);
             // Guardar las transacciones en la base de datos
-            transactionRepository.save(debitTransaction);
-            transactionRepository.save(creditTransaction);
+            transactionService.save(debitTransaction);
+            transactionService.save(creditTransaction);
             // Guardar las cuentas en la base de datos
-            accountRepository.save(originAccount);
-            accountRepository.save(destinyAccount);
+            accountService.save(originAccount);
+            accountService.save(destinyAccount);
 
             // Comentario para indicar que la transacción se realizó exitosamente
             result = new ResponseEntity<>("La transacción se realizó exitosamente", HttpStatus.CREATED);
@@ -112,7 +112,7 @@ public class TransactionControllers {
     // Obtener una transacción por ID
     @GetMapping("/transaction/{id}")
     public TransactionDTO getTransaction(@PathVariable long id) {
-        return new TransactionDTO(transactionRepository.findById(id).orElse(null));
+        return new TransactionDTO((Transaction) transactionService.getTransaction(id));
     }
 
 }
