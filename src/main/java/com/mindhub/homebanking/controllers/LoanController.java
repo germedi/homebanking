@@ -26,16 +26,7 @@ import static com.mindhub.homebanking.models.TransactionType.CREDIT;
 public class LoanController {
 
 
-    @Autowired
-    private LoanRepository loanRepository;
-    @Autowired
-    private TransactionRepository transactionRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private ClientLoanRepository clientLoanRepository;
+
     @Autowired
     LoanService loanService;
     @Autowired
