@@ -8,6 +8,7 @@ import com.mindhub.homebanking.repositories.*;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.services.LoanService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,12 @@ public class LoanController {
     private ClientLoanRepository clientLoanRepository;
     @Autowired
     LoanService loanService;
+    @Autowired
+    ClientService clientService;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    TransactionService transactionService;
 
     @GetMapping("/loans")
     public List<LoanDTO> getAll() {
@@ -45,10 +52,10 @@ public class LoanController {
     @PostMapping("/loans")
     public ResponseEntity<Object> createLoans(@RequestBody LoanApplicationDTO loanApplicationDTO, Authentication authentication) {
         try {
-            Client client = clientRepository.findByEmailIgnoreCase(authentication.getName()).get();
-            Optional<Loan> loan = loanRepository.findById(loanApplicationDTO.getLoanId());
-            Optional<Account> account = Optional.ofNullable(accountRepository.findByNumber(loanApplicationDTO.getToAccountNumber()));
-            Account creditAccount = accountRepository.findByNumber(loanApplicationDTO.getToAccountNumber());
+            Client client = clientService.getClientByEmail(authentication.getName());
+            Optional<Loan> loan = loanService.findById(loanApplicationDTO.getLoanId());
+            Optional<Account> account = accountService.findByNumber(loanApplicationDTO.getToAccountNumber());
+            Account creditAccount = accountService.getAccountByNumber(loanApplicationDTO.getToAccountNumber());
             //verificar que el prestamo exista
             if (loan.isEmpty()) {
                 return new ResponseEntity<>("Loan doesn't exist", HttpStatus.FORBIDDEN);
@@ -86,12 +93,12 @@ public class LoanController {
             ///Debe recibir un objeto de solicitud de crédito con los datos del préstamo
             // Crear transaccion y actualiza el saldo de la cuenta
             Transaction transaction = new Transaction(CREDIT, loanApplicationDTO.getAmount(),"description"+" "+ "loan aproved", LocalDateTime.now());
-            transactionRepository.save(transaction);//account , transaction type, double, string, localdatetime  (account.get(), TransactionType.CREDIT, loanApplicationDTO.getAmount(),  loan.get().getName() + " loan approved", LocalDateTime.now()
+            transactionService.save(transaction);//account , transaction type, double, string, localdatetime  (account.get(), TransactionType.CREDIT, loanApplicationDTO.getAmount(),  loan.get().getName() + " loan approved", LocalDateTime.now()
             creditAccount.addTransaction(transaction);
             Double balanceToAccount = creditAccount.getBalance();
             creditAccount.setBalance(balanceToAccount+loanApplicationDTO.getAmount());
             ClientLoan clientLoan = new ClientLoan(loanInterest, loanApplicationDTO.getPayments(), client, loan.get());
-            clientLoanRepository.save(clientLoan);
+            loanService.saveClientLoan(clientLoan);
             return new ResponseEntity<>(" loan approved", HttpStatus.CREATED);
 
         } catch (Exception ex) {

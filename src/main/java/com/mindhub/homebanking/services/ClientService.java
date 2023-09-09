@@ -17,6 +17,7 @@ public interface ClientService {
 
     public ClientDTO getClientDto(Authentication authentication);
 
+
     public Client getClientByEmail(String email);
 
     public void saveClient(Client client);
