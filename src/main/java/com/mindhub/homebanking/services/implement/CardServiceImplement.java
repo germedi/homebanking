@@ -37,4 +37,12 @@ public class CardServiceImplement implements CardService {
     public Client getCards(String authentication) {
         return clientRepository.findByEmail(authentication);
     }
+
+    @Override
+    public Card getCardById(long id) {
+        return cardRepository.findById(id).orElse(null);
+    }
+    public void deleteCard(Card card) {
+        cardRepository.delete(card);
+    }
 }

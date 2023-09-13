@@ -28,7 +28,12 @@ public class Card {
     private Client client;
 
     // Constructor vacío
+
+
     public Card() {
+    }
+
+    public Card(CardColor gold) {
     }
 
     // Constructor con parámetros

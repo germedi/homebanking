@@ -23,7 +23,7 @@ public class ClientLoan {
     @ManyToOne(fetch = FetchType.EAGER) // Anotación que indica que esta entidad tiene una relación "muchos a uno" con otra entidad
     @JoinColumn(name = "loanId") // Anotación que indica el nombre de la columna que representa la clave foránea en la tabla de esta entidad
     private Loan loan; // Campo que representa el préstamo asociado a este cliente
-    private LocalDateTime dateTime;
+
 
     public ClientLoan() {
     }
@@ -74,9 +74,7 @@ public class ClientLoan {
         this.loan = loan;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
+
 }
 /* La clase ClientLoan representa un préstamo asociado a un cliente en la base de datos.
 lo entendi como una tabla intermedia entre client y loan

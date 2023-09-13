@@ -1,11 +1,13 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.Utils.CardUtils;
 import com.mindhub.homebanking.dtos.CardDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,9 @@ public class CardController {
 
     @Autowired
     public CardService cardService;
+
+    @Autowired
+    public ClientService clientService;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam CardType cardType,
@@ -73,9 +78,9 @@ public class CardController {
                 }
 
                 // Generar los datos de la nueva tarjeta
-                String cardNumber = generateCardNumber();
+                String cardNumber = CardUtils.generateCardNumber();
                 String cardHolder = client.getFirstName() + " " + client.getLastName();
-                int cvv = generateCvv();
+                int cvv = CardUtils.generateCvv();
                 LocalDate fromDate = LocalDate.now();
                 LocalDateTime thruDate = LocalDateTime.now().plusYears(5);
 
@@ -97,33 +102,6 @@ public class CardController {
         }
     }
 
-    // Método para verificar si un cliente ya tiene una tarjeta del mismo color
-    private boolean hasCardWithColor(Client client, CardColor color) {
-        return client.getCards().stream().anyMatch(card -> card.getColor() == color);
-    }
-
-    // Método para generar un número de tarjeta aleatorio
-    private String generateCardNumber() {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                sb.append(random.nextInt(10));
-            }
-            if (i < 3) {
-                sb.append("-");
-            }
-        }
-
-        return sb.toString();
-    }
-
-    // Método para generar un número CVV aleatorio
-    private int generateCvv() {
-        Random random = new Random();
-        return random.nextInt(900) + 100;
-    }
 
     @GetMapping("/clients/current/cards")
     public ResponseEntity<?> getCards(Authentication authentication) {
@@ -145,5 +123,40 @@ public class CardController {
         List<CardDTO> cardDTOs = cards.stream().map(CardDTO::new).collect(Collectors.toList());
 
         return ResponseEntity.ok(cardDTOs);
+    }
+    @PatchMapping("clients/current/cards/delete")
+    public ResponseEntity<Object> deleteCards(
+            @RequestParam long id,
+            Authentication authentication
+    ){
+        // Obtiene el cliente actual de la base de datos.
+        Client current = clientService.getClientByEmail(authentication.getName());
+
+        // Obtiene la tarjeta de la base de datos.
+        Card card = cardService.getCardById(id);
+
+        // Comprueba si el id de la tarjeta es inválido.
+        if (id == 0 ){
+            // Devuelve un mensaje de error.
+            return new ResponseEntity<>("Esta tarjeta no existe",HttpStatus.FORBIDDEN);
+        }
+
+        // Comprueba si el cliente actual tiene autorización para eliminar la tarjeta.
+        if(current == null){
+            // Devuelve un mensaje de error.
+            return  new ResponseEntity<>("No tienes autorizacion", HttpStatus.FORBIDDEN);
+        }
+
+        // Comprueba si la tarjeta pertenece al cliente actual.
+        if(!current.getCards().contains(card)){
+            // Devuelve un mensaje de error.
+            return new ResponseEntity<>("Esta tarjeta no te pertenece", HttpStatus.FORBIDDEN);
+        }
+
+        // Elimina la tarjeta de la base de datos.
+        cardService.deleteCard(card);
+
+        // Devuelve una respuesta exitosa.
+        return  new ResponseEntity<>("Tarjeta borrada con exito", HttpStatus.ACCEPTED);
     }
 }

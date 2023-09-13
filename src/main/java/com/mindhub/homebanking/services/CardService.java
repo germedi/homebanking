@@ -11,4 +11,7 @@ public interface CardService {
    public Card save(Card card);
    public Client getCards(String authentication);
 
+    public Card getCardById(long id);
+
+    public void deleteCard(Card card);
 }

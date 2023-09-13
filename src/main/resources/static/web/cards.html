@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -120,7 +120,10 @@
                                     <img class="plastic-card__back-logo plastic-card__logo" src="img/Mindhub-logo.png">
                                 </div>
                             </div>
+                            <!-- agregar boton borrar -->
+                            <button class="botoncard btn-grad rounded fs-5" type="button" v-on:click="eliminarCard(card.id)">Delete</button>
                         </div>
+
                     </div>
                     <div class="row mt-3">
                         <div class="col">
@@ -159,13 +162,19 @@
                                     </div>
                                     <img class="plastic-card__back-logo plastic-card__logo" src="img/Mindhub-logo.png">
                                 </div>
+
                             </div>
+                            <!-- agregar boton borrar -->
+                            <button class="botoncard btn-grad rounded fs-5" type="button" v-on:click="eliminarCard(card.id)">Delete</button>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Agrega este script en el archivo HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
