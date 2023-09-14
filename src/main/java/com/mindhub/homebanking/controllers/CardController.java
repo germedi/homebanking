@@ -3,9 +3,6 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.Utils.CardUtils;
 import com.mindhub.homebanking.dtos.CardDTO;
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +22,8 @@ public class CardController {
     public CardType cardtype;
     public CardColor cardColor;
 
+
+
     @Autowired
     public CardService cardService;
 
@@ -33,7 +32,7 @@ public class CardController {
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createCard(Authentication authentication, @RequestParam CardType cardType,
-                                             @RequestParam CardColor cardColor) {
+                                             @RequestParam CardColor cardColor, LocalDateTime expiret) {
        /* try { } catch { } permite capturar y manejar excepciones que puedan ocurrir
        durante la ejecución de un bloque de código, evitando que el programa se detenga abruptamente y permitiendo tomar acciones específicas en caso de que ocurra una excepción.*/
         try {
@@ -85,7 +84,7 @@ public class CardController {
                 LocalDateTime thruDate = LocalDateTime.now().plusYears(5);
 
                 // Crear la nueva tarjeta y guardarla en la base de datos
-                Card card = new Card(cardType, cardNumber, cvv, cardHolder, fromDate, thruDate, cardColor);
+                Card card = new Card(cardType, cardNumber, cvv, cardHolder, fromDate, thruDate, cardColor, expiret);
                 card.setClient(client);
                 cardService.save(card);
 
@@ -120,6 +119,7 @@ public class CardController {
         }
 
         // Convertir las tarjetas a DTOs y retornarlas en una lista
+        // Convertir las tarjetas a DTOs y asignar el valor de expired
         List<CardDTO> cardDTOs = cards.stream().map(CardDTO::new).collect(Collectors.toList());
 
         return ResponseEntity.ok(cardDTOs);

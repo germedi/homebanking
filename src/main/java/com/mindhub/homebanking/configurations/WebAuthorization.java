@@ -22,8 +22,23 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
         // si cambio el orden y pongo esta regla primero '.antMatchers("/**").hasAuthority("CLIENT")'
         // me va a rechazar la autorización, por que analiza primero esa linea.
         http.authorizeRequests()
+                .antMatchers("/web/index.html","/web/css/**","/web/img/**","/web/js/**","/api/loans").permitAll()//
+                .antMatchers(HttpMethod.POST, "/api/login","/api/logout","/api/clients").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/clients/current/accounts","/api/clients/current/cards"
+                        ,"/api/transactions","/api/loans").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers("/web/**.html").hasAnyAuthority("CLIENT","ADMIN")
+
+                .antMatchers("/api/**").hasAnyAuthority("CLIENT","ADMIN")
+                //.antMatchers("/api/clients","/api/accounts","/api/cards","api/transactions"
+                //       ,"api/clients/{id}","/api/accounts/{id}","/api/transaction/{id}",
+                //       "/api/clients/current","/api/clients/current/accounts","/api/clients/current/cards").hasAnyAuthority("CLIENT","ADMIN")
+
+
+                .anyRequest().denyAll();
+       /* http.authorizeRequests()
                 .antMatchers("/web/index.html", "/web/css/**", "/web/img/**", "/web/js/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/login", "/api/clients").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.GET, "/api/clients/current").hasAuthority("CLIENT")
@@ -38,7 +53,7 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT") //
                 .antMatchers(HttpMethod.PATCH,"/api/clients/current/cards/delete").hasAuthority("CLIENT") //
-                .antMatchers("/web/account.html").hasAuthority("CLIENT") //
+                .antMatchers("/web/account.html").permitAll() //
                 .antMatchers("/web/transfers.html").hasAuthority("CLIENT") ///web/transfers.html
                 .antMatchers("/web/cards.html").hasAuthority("CLIENT") ///web/cards.html
                 .antMatchers("/web/create-cards.html").hasAuthority("CLIENT")
@@ -47,8 +62,10 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console").hasAuthority("CLIENT")
                 .antMatchers("/rest/**").hasAuthority("ADMIN")
                 .antMatchers("/h2-console/**").hasAnyAuthority("ADMIN", "CLIENT")
-                .antMatchers("/**").hasAnyAuthority("ADMIN");
-
+               .antMatchers("/**").hasAnyAuthority("ADMIN")
+               // .antMatchers("/**").hasAuthority("ADMIN");
+                .anyRequest().denyAll();
+*/
 
         // Define un recurso POST para hacer el login
         http.formLogin()

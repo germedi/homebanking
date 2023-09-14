@@ -22,6 +22,7 @@ public class Card {
     private LocalDate fromDate;
     private LocalDateTime thruDate;
 
+
     // Asociación ManyToOne con la clase Client mediante el atributo client_id
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
@@ -30,21 +31,29 @@ public class Card {
     // Constructor vacío
 
 
-    public Card() {
+    public Card(CardType cardType, String cardNumber, int cvv, String cardHolder, LocalDate fromDate, LocalDateTime thruDate, CardColor cardColor, LocalDateTime expiret) {
     }
 
     public Card(CardColor gold) {
     }
 
     // Constructor con parámetros
-    public Card(CardType type, String number, int cvv, String cardHolder, LocalDate fromDate, LocalDateTime thruDate, CardColor color) {
+
+
+    public Card() {
+    }
+
+    public Card(Long id, String cardHolder, CardType type, CardColor color, String number, int cvv, LocalDate fromDate, LocalDateTime thruDate) {
+        this.id = id;
+        this.cardHolder = cardHolder;
         this.type = type;
+        this.color = color;
         this.number = number;
         this.cvv = cvv;
-        this.cardHolder = cardHolder;
         this.fromDate = fromDate;
         this.thruDate = thruDate;
-        this.color = color;
+
+
     }
 
     // Getters y setters para cada atributo de la clase

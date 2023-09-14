@@ -12,37 +12,32 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-@Configuration // Indica que esta clase es una configuración
+@Configuration
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
-    // Inyecta una dependencia de ClientRepository
+
     @Autowired
     ClientRepository clientRepository;
 
     @Override
-    // Inicializa el AuthenticationManagerBuilder
-    public void init(AuthenticationManagerBuilder auth) throws Exception {
-        // Define un servicio de detalles de usuario personalizado
-        auth.userDetailsService(email-> {
-            // Busca al cliente en la base de datos utilizando su correo electrónico
-            Client client = clientRepository.findByEmail(email);
-            if (client != null) {
-                if (client.getEmail().equalsIgnoreCase("gerardomedinav@gmail.com")) {
-                    return new User(client.getEmail(), client.getPassword()
-                            , AuthorityUtils.createAuthorityList("ADMIN"));
-                } else {
-                    return new User(client.getEmail(), client.getPassword()
-                            , AuthorityUtils.createAuthorityList("CLIENT"));
+    public void init(AuthenticationManagerBuilder auth)throws Exception{
+        auth.userDetailsService( inputEmail-> {
+            Client client = clientRepository.findByEmail(inputEmail);
+
+            if(client != null){
+                if(client.getEmail().endsWith("gerardomedinavv@gmail.com")){
+                    return new User(client.getEmail(),client.getPassword(),
+                            AuthorityUtils.createAuthorityList("ADMIN"));
                 }
-            } else {
-                throw new UsernameNotFoundException("Unknown user: " + email);
+                return new User(client.getEmail(),client.getPassword(),
+                        AuthorityUtils.createAuthorityList("CLIENT"));
+            }else{
+                throw new UsernameNotFoundException("Unknown client: "+ inputEmail);
             }
         });
-
     }
 
-    // Define un Bean que encripta la contraseña utilizando PasswordEncoderFactories
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
