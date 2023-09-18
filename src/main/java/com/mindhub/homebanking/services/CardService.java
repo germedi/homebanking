@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CardService {
 
    public Optional<Client> toSearch(String email);
-    void save(Card card);
+    Card save(Card card);
    public Client getCards(String authentication);
 
     public Card getCardById(long id);

@@ -29,8 +29,9 @@ public class CardServiceImplement implements CardService {
     }
 
     @Override
-    public void save(Card card) {
+    public Card save(Card card) {
         cardRepository.save(card);
+        return card;
     }
     @Override
     public Client getCards(String authentication) {

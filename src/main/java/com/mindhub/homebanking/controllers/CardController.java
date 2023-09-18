@@ -76,20 +76,33 @@ public class CardController {
                 }
 
                 // Generar los datos de la nueva tarjeta
+                LocalDate currentDate = LocalDate.now();
                 String cardNumber = CardUtils.generateCardNumber();
                 String cardHolder = client.getFirstName() + " " + client.getLastName();
                 int cvv = CardUtils.generateCvv();
-                LocalDate fromDate = LocalDate.now();
+                LocalDateTime fromDate = LocalDate.now().atStartOfDay();
                 LocalDateTime thruDate = LocalDateTime.now().plusYears(5);
 
 
-                // Crear la nueva tarjeta y guardarla en la base de datos
-                Card card = new Card(cardType,cardNumber,cvv,cardHolder,fromDate,thruDate,cardColor);
+
+// Crear la nueva tarjeta y guardarla en la base de datos
+
+                Card card = new Card(cardType, cardNumber, cvv, cardHolder, fromDate, thruDate, cardColor, false);
                 card.setClient(client);
 
-
                 cardService.save(card);
-                System.out.println("Nuevo objeto Card: " + card);
+
+// Obtener la tarjeta guardada en la base de datos
+                // Guardar la nueva tarjeta en la base de datos
+                Card savedCard = cardService.save(card);
+
+                // Verificar si la fecha de vencimiento es menor a la fecha actual
+                  if (thruDate.isBefore(LocalDate.now().atStartOfDay())) {
+                    // Si la fecha de vencimiento es menor a la fecha actual, establecer el valor de expired en true y guardar la tarjeta actualizada en la base de datos
+                    card.setExpired(true);
+                    cardService.save(card);
+                }
+
 
                 // Retornar una respuesta exitosa
                 return new ResponseEntity<>(HttpStatus.CREATED);
@@ -105,60 +118,38 @@ public class CardController {
     }
 
 
-    @GetMapping("/clients/current/cards")
-    public ResponseEntity<?> getCards(Authentication authentication) {
-        // Buscar el cliente en la base de datos
-        Client current = cardService.getCards(authentication.getName());
-
-        if (current == null) {
-            // Si no se encuentra el cliente, retornar un error 404 (Not Found)
-            return ResponseEntity.notFound().build();
-        }
-
-        Set<Card> cards = current.getCards();
-        if (cards == null || cards.isEmpty()) {
-            // Si el cliente no tiene tarjetas, retornar una respuesta vacía
-            return ResponseEntity.noContent().build();
-        }
-
-        // Convertir las tarjetas a DTOs y retornarlas en una lista
-        // Convertir las tarjetas a DTOs y asignar el valor de expired
-        List<CardDTO> cardDTOs = cards.stream().map(CardDTO::new).collect(Collectors.toList());
-
-        return ResponseEntity.ok(cardDTOs);
-    }
     @PatchMapping("clients/current/cards/delete")
     public ResponseEntity<Object> deleteCards(
             @RequestParam long id,
             Authentication authentication
-    ){
+    ) {
         // Obtiene el cliente actual de la base de datos.
         Client current = clientService.getClientByEmail(authentication.getName());
 
 
-
         // Comprueba si el id de la tarjeta es inválido.
-        if (id == 0 ){
+        if (id == 0) {
             // Devuelve un mensaje de error.
-            return new ResponseEntity<>("Esta tarjeta no existe",HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Esta tarjeta no existe", HttpStatus.FORBIDDEN);
         }
-            // Obtiene la tarjeta de la base de datos.
-            Card card = cardService.getCardById(id);
-        if(card == null){
+        // Obtiene la tarjeta de la base de datos.
+        Card card = cardService.getCardById(id);
+        if (card == null) {
             // Devuelve un mensaje de error.
-            return new ResponseEntity<>("Esta tarjeta no existe",HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Esta tarjeta no existe", HttpStatus.FORBIDDEN);
 
         }
 
 
         // Comprueba si el cliente actual tiene autorización para eliminar la tarjeta.
-        if(current == null){
+        if (current == null) {
             // Devuelve un mensaje de error.
-            return  new ResponseEntity<>("No tienes autorizacion", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("No tienes autorizacion", HttpStatus.FORBIDDEN);
         }
 
+
         // Comprueba si la tarjeta pertenece al cliente actual.
-        if(!current.getCards().contains(card)){
+        if (!current.getCards().contains(card)) {
             // Devuelve un mensaje de error.
             return new ResponseEntity<>("Esta tarjeta no te pertenece", HttpStatus.FORBIDDEN);
         }
@@ -167,6 +158,41 @@ public class CardController {
         cardService.deleteCard(card);
 
         // Devuelve una respuesta exitosa.
-        return  new ResponseEntity<>("Tarjeta borrada con exito", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Tarjeta borrada con exito", HttpStatus.ACCEPTED);
     }
+/*
+    @GetMapping("/clients/current/cards")
+    public ResponseEntity<?> getCards(Authentication authentication) {
+        // Buscar el cliente en la base de datos
+        Client current = cardService.getCards(authentication.getName());
+
+        if (current == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Set<Card> cards = current.getCards();
+
+        if (cards == null || cards.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        // Iterar sobre la lista de tarjetas.
+        for (Card card : cards) {
+            if (card.getThruDate().isBefore(LocalDateTime.now())) {
+                card.setExpired(true);
+                cardRepository.save(card);
+                System.out.println("Tarjeta marcada como vencida: " + card);
+            }
+        }
+
+        // Convertir las tarjetas a DTOs y asignar el valor de expired.
+        List<CardDTO> cardDTOs = cards.stream().map(card -> {
+            CardDTO cardDTO = new CardDTO(card);
+            cardDTO.setExpired(card.isExpired());
+            return cardDTO;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(cardDTOs);
+    }
+*/
 }

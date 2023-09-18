@@ -15,8 +15,10 @@ public class CardDTO {
     private CardColor color;
     private String number;
     private int cvv;
-    private LocalDate fromDate;
+    private LocalDateTime fromDate;
     private LocalDateTime thruDate;
+    private boolean expired;
+
 
     public CardDTO (Card card){
         this.id = card.getId();
@@ -27,7 +29,9 @@ public class CardDTO {
         this.cvv = card.getCvv();
         this.fromDate = card.getFromDate();
         this.thruDate = card.getThruDate();
+        this.expired = card.isExpired(); // Aquí actualizamos el valor de expired
     }
+
 
     public Long getId() {
         return id;
@@ -53,11 +57,19 @@ public class CardDTO {
         return cvv;
     }
 
-    public LocalDate getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
 
     public LocalDateTime getThruDate() {
         return thruDate;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

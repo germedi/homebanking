@@ -19,8 +19,9 @@ public class Card {
     private CardColor color;
     private String number;
     private int cvv;
-    private LocalDate fromDate;
+    private LocalDateTime fromDate;
     private LocalDateTime thruDate;
+    private boolean expired = false;
 
 
     // Asociación ManyToOne con la clase Client mediante el atributo client_id
@@ -40,7 +41,7 @@ public class Card {
     public Card(CardColor silver) {
     }
 
-    public Card(Long id, String cardHolder, CardType type, CardColor color, String number, int cvv, LocalDate fromDate, LocalDateTime thruDate) {
+    public Card(Long id, String cardHolder, CardType type, CardColor color, String number, int cvv, LocalDateTime fromDate, LocalDateTime thruDate) {
         this.id = id;
         this.cardHolder = cardHolder;
         this.type = type;
@@ -49,10 +50,11 @@ public class Card {
         this.cvv = cvv;
         this.fromDate = fromDate;
         this.thruDate = thruDate;
+        this.expired=false;
 
 
     }
-    public Card(CardType cardType, String cardNumber, int cvv, String cardHolder, LocalDate fromDate, LocalDateTime thruDate, CardColor cardColor) {
+    public Card(CardType cardType, String cardNumber, int cvv, String cardHolder, LocalDateTime fromDate, LocalDateTime thruDate, CardColor cardColor, boolean expired) {
         this.type = cardType;
         this.number = cardNumber;
         this.cvv = cvv;
@@ -60,8 +62,8 @@ public class Card {
         this.fromDate = fromDate;
         this.thruDate = thruDate;
         this.color = cardColor;
+        this.expired=expired;
     }
-
 
 
 
@@ -115,11 +117,11 @@ public class Card {
         this.cvv = cvv;
     }
 
-    public LocalDate getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
 
@@ -137,5 +139,13 @@ public class Card {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

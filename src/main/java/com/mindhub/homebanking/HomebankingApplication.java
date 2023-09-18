@@ -94,8 +94,9 @@ public class HomebankingApplication {
 			clientRepository.save(new Client("Juan", "Perez", "PerezJuan@gmail.com", passwordEncoder.encode("123"))); // Crea y guarda un nuevo objeto "Client" en la base de datos
 
 			// Crear dos instancias de la clase Card para cada cliente melba
-			Card card1 = new Card(CardType.DEBIT, "1223-4512-3456-8565", 542, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDateTime.now().plusYears(5), CardColor.GOLD);
-			Card card2 = new Card(CardType.CREDIT, "5522-5678-9234-4632", 325, client.getFirstName() + " " + client.getLastName(), LocalDate.now(), LocalDateTime.now().plusYears(5), CardColor.TITANIUM);
+
+			Card card1 = new Card(CardType.DEBIT, "1223-4512-3456-8565", 542, client.getFirstName() + " " + client.getLastName(), LocalDateTime.now(), LocalDateTime.now().plusYears(-2), CardColor.GOLD,true);
+			Card card2 = new Card(CardType.CREDIT, "5522-5678-9234-4632", 325, client.getFirstName() + " " + client.getLastName(), LocalDateTime.now(), LocalDateTime.now().plusYears(5), CardColor.TITANIUM, false);
 
 			// Asociar cada instancia de Card con el objeto Client correspondiente
 			card1.setClient(client);
