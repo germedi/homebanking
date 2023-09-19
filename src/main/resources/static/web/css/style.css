@@ -51,12 +51,13 @@
 }
 
 .menu-logo {
-    width: 100px;
-    height: 40px;
+    width: 162px;
+    height: 97px;
 }
 
 .welcome {
-    background: linear-gradient(45deg, #5573f8cc, #2d0a66);
+background: rgb(108,108,107);
+background: linear-gradient(356deg, rgba(108,108,107,1) 13%, rgba(174,183,198,1) 30%, rgba(234,236,236,1) 62%);
 }
 
 .welcome-logo {
@@ -64,7 +65,7 @@
 }
 
 .index-body {
-    background-image: url(../img/mindhub.jpg);
+    background-image: url(../img/home_banking_img.jpg);
     background-size: cover;
     background-attachment: fixed;
 }
@@ -75,4 +76,70 @@
 
 .rounded-5 {
     border-radius: 10px;
+}
+.bg-light {
+    background-color: #f8f9faed!important;
+}
+.btn-light:hover {
+    color: #474343;
+    background-color: #1065d7;
+    border-color: #f9fafb;
+}
+.btn-light {
+    color: #000;
+    background-color: #1977d5;
+    border-color: #f8f9fa;
+ }
+body#accounts, body#cards, body#trasnfers, body#loan{
+             background: rgb(196,189,187);
+             background: linear-gradient(356deg, rgba(196,189,187,0.7399334733893557) 15%, rgba(238,229,227,0.7903536414565826) 47%, rgba(182,171,166,0.7399334733893557) 84%);
+
+             }
+
+
+#logoAp{
+    width: 150px;
+    height: auto;
+    margin: 2vh;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-between;
+    border-radius: 10%;
+}
+img#logo{
+    width: 40px;
+    margin: 15px;
+}
+/* footer */
+.row#footer{
+ background: rgb(196,189,187);
+ background: linear-gradient(356deg, rgba(196,189,187,0.7399334733893557) 15%, rgba(25,25,24,0.7903536414565826) 47%, rgba(182,171,166,0.7399334733893557) 84%);
+    margin-top:20px;
+}
+footer{
+    color: #fefefe;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 2px -2px 5px #999 ;
+}
+
+.row#banner {
+    background-image: url(../img/computer_banner.jpg);
+    background-size: cover; /* Esto asegura que la imagen cubra toda la altura y el ancho del contenedor */
+    background-position: center; /* Centra la imagen dentro del contenedor */
+    height: 300px; /* Ajusta la altura según lo que necesites */
+    margin-top: 0px;
+    position: relative; /* Cambiado de static a relative */
+}
+img#banking {
+    width: 30%;
+    height: auto;
+    margin: 6px;
+    margin-left: 54px;
+    opacity: 0.78;
+}
+h1#welcome{
+    margin-left: 133px;
 }
