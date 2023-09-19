@@ -35,6 +35,7 @@
 
 #create {
     margin-bottom: 15px;
+        margin-left: 28px;
 }
 
 .credit-transaction {
@@ -90,7 +91,7 @@ background: linear-gradient(356deg, rgba(108,108,107,1) 13%, rgba(174,183,198,1)
     background-color: #1977d5;
     border-color: #f8f9fa;
  }
-body#accounts, body#cards, body#trasnfers, body#loan{
+body#accounts, body#cards, body#trasnfers, body#loan, body#account, body#create_cards{
              background: rgb(196,189,187);
              background: linear-gradient(356deg, rgba(196,189,187,0.7399334733893557) 15%, rgba(238,229,227,0.7903536414565826) 47%, rgba(182,171,166,0.7399334733893557) 84%);
 
@@ -106,7 +107,7 @@ body#accounts, body#cards, body#trasnfers, body#loan{
     justify-content: space-between;
     border-radius: 10%;
 }
-img#logo{
+img#logo,img#logo1,img#logo2,img#logo3,img#logo4 {
     width: 40px;
     margin: 15px;
 }
@@ -142,4 +143,54 @@ img#banking {
 }
 h1#welcome{
     margin-left: 133px;
+}
+
+@media screen and (max-width: 767px) {
+    .menu-logo {
+        width: 100%;
+        max-width: 206px;
+        height: auto;
+        margin-left: 15%;
+    }
+    img#banking {
+        width: 70%;
+        height: auto;
+        margin: 100px;
+        margin-left: 54px;
+        opacity: 0.78;
+    }
+    h1#welcome {
+        margin-left: 75px;
+        top: 15px;
+        position: absolute;
+    }
+}
+
+#footer a {
+    color: white;
+    text-decoration: none;
+}
+/* Reglas para visualización en celular */
+@media screen and (max-width: 767px) {
+    .menu-logo {
+        width: 100%;
+        max-width: 206px;
+        height: auto;
+        margin-left: 15%;
+    }
+}
+
+/* Reglas para visualización en tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    img#banking {
+        width: 70%;
+        height: auto;
+        margin: 84px;
+        margin-left: 74px;
+        opacity: 0.78;
+    }
+
+    h1#welcome {
+        margin-left: 176px;
+    }
 }
