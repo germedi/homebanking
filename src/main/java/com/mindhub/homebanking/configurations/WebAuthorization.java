@@ -42,30 +42,34 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/web/index.html", "/web/css/**", "/web/img/**", "/web/js/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/clients/current").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST, "/api/transfers").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/clients/current/accounts").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/Transfers").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAuthority("CLIENT")///accounts/{id}
-                .antMatchers(HttpMethod.POST, "/api/transactions/**").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/transaction/{id}").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/clients/{id}/loans").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
-                .antMatchers("/web/accounts.html").hasAuthority("CLIENT") //
-                .antMatchers(HttpMethod.PATCH,"/api/clients/current/cards/delete").hasAuthority("CLIENT") //
+                .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/clients/current").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/clients/current").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/transfers").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/clients/current/accounts").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/Transfers").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAnyAuthority("CLIENT","ADMIN")///accounts/{id}
+                .antMatchers(HttpMethod.POST, "/api/transactions/**").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/transaction/{id}").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/clients/{id}/loans").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/loans").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/loans").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers("/web/accounts.html").hasAnyAuthority("CLIENT","ADMIN")//
+                .antMatchers(HttpMethod.PATCH,"/api/clients/current/cards/delete").hasAnyAuthority("CLIENT","ADMIN") //
                 .antMatchers("/web/account.html").permitAll() //
-                .antMatchers("/web/transfers.html").hasAuthority("CLIENT") ///web/transfers.html
-                .antMatchers("/web/cards.html").hasAuthority("CLIENT") ///web/cards.html
-                .antMatchers("/web/create-cards.html").hasAuthority("CLIENT")
-                .antMatchers("/web/loan-application.html").hasAuthority("CLIENT")
-                .antMatchers("/h2-console").hasAuthority("ADMIN")
-                .antMatchers("/h2-console").hasAuthority("CLIENT")
-                .antMatchers("/rest/**").hasAuthority("ADMIN")
+                .antMatchers("/web/transfers.html").hasAnyAuthority("CLIENT","ADMIN") ///web/transfers.html
+                .antMatchers("/web/cards.html").hasAnyAuthority("CLIENT","ADMIN") ///web/cards.html
+                .antMatchers("/web/create-cards.html").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers("/web/loan-application.html").hasAnyAuthority("CLIENT","ADMIN")
+                .antMatchers("/web/personal-details.html").hasAnyAuthority("CLIENT", "ADMIN")
+
+                .antMatchers("/h2-console").hasAnyAuthority("ADMIN","CLIENT")
+
+                .antMatchers("/rest/**").hasAnyAuthority("CLIENT","ADMIN")
                 .antMatchers("/h2-console/**").hasAnyAuthority("ADMIN", "CLIENT")
                .antMatchers("/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/web/stats.html").hasAuthority("ADMIN")
                // .antMatchers("/**").hasAuthority("ADMIN");
                 .anyRequest().denyAll();
 

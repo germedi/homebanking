@@ -4,17 +4,20 @@ Vue.createApp({
             clientInfo: {},
             errorToats: null,
             errorMsg: null,
+            isAdmin: false // Agrega una propiedad para indicar si el usuario es administrador
         }
     },
     methods: {
         getData: function () {
             axios.get("/api/clients/current")
                 .then((response) => {
-                    //get client ifo
+                    // Obtener información del cliente
                     this.clientInfo = response.data;
+                    // Verificar si el usuario es administrador
+                    this.isAdmin = this.clientInfo.email === 'gerardomedinavv@gmail.com';
                 })
                 .catch((error) => {
-                    // handle error
+                    // Manejar el error
                     this.errorMsg = "Error getting data";
                     this.errorToats.show();
                 })
@@ -44,3 +47,4 @@ Vue.createApp({
         this.getData();
     }
 }).mount('#app')
+

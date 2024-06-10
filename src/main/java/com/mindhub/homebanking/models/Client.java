@@ -120,6 +120,8 @@ public class Client {
         card.setClient(this);
         cards.add(card);
     }
+
+
 }
 
    /* La clase  representa a un cliente.
