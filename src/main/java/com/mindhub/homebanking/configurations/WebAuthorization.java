@@ -89,7 +89,12 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
         // Deshabilita las opciones de marco para que se pueda acceder a h2-console
         http.headers().frameOptions().disable();
         // Si el usuario no está autenticado, redirige al usuario a la página de inicio
-        http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendRedirect("/web/index.html"));
+        http.exceptionHandling()
+                .authenticationEntryPoint((req, res, exc) -> {
+                    res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    res.sendRedirect("/web/index.html");
+                });
+
         //******************************************************
         // Si el usuario no está autenticado, simplemente envía una respuesta de fallo de autenticación
 

@@ -1,19 +1,44 @@
-   // libreria chart  Esperar a que el DOM esté completamente cargado antes de ejecutar el código de Chart.js
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // Obtener el contexto 2D del canvas
-                        let miCanvas = document.getElementById("Prestamos").getContext("2d");
+// Obtener los datos de los préstamos desde el backend
+axios.get('/api/loans')
+  .then(response => {
+    const loanData = response.data;
+    console.log('Loan data:', loanData);
 
-                        // Crear una nueva instancia de Chart
-                        var chart = new Chart(miCanvas, {
-                            type: "bar", // Tipo de gráfico
-                            data: {
-                                labels: ["100000", "200000", "300000", "400000"], // Etiquetas para el eje X
-                                datasets: [{
-                                    label: "Prestamos en miles", // Etiqueta del conjunto de datos
-                                    backgroundColor: "rgb(0,0,0)", // Color de fondo de las barras
-                                    borderColor: "rgb(0,255,0)", // Color del borde de las barras
-                                    data: [12, 39, 5, 30] // Datos a graficar
-                                }]
-                            }
-                        });
-                    });
+    // Preparar los datos para el gráfico
+    const loanTypes = loanData.map(loan => loan.name);
+    const loanAmounts = loanData.map(loan => loan.maxAmount);
+
+    console.log('Loan types:', loanTypes);
+    console.log('Loan amounts:', loanAmounts);
+
+    // Renderizar el gráfico de barras
+    renderBarChart(loanTypes, loanAmounts);
+  })
+  .catch(error => {
+    console.error('Error fetching loan data:', error);
+  });
+
+// Función para renderizar el gráfico de barras
+function renderBarChart(labels, data) {
+  const ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Max Loan Amount',
+        data: data,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}

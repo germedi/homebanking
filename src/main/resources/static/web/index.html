@@ -35,14 +35,14 @@
                             class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last welcome shadow-sm rounded-5">
                             <div class="text w-100">
                                 <img class="welcome-logo" src="img/Online-Banking-Free-Download-PNG.png">
-                                <h2>Welcome to Bank</h2>
+                                <h2>Bienvenido a tu Banco </h2>
                                 <div v-if="showSignUp" class="form-group">
                                     <a v-on:click="showSignUpToogle" href="#" class="btn btn-light my-2"><small>Sign
                                             In</small></a>
                                 </div>
                                 <template v-if="!showSignUp">
-                                    <p>Don't have an account?</p>
-                                    <button v-on:click="showSignUpToogle" class="btn btn-light">Sign Up</button>
+                                    <p>¿No tienes una cuenta?</p>
+                                    <button v-on:click="showSignUpToogle" class="btn btn-light">Crear Cuenta</button>
 
                                 </template>
                             </div>
@@ -51,7 +51,7 @@
                             <template v-if="!showSignUp">
                                 <div class="d-flex">
                                     <div class="w-100">
-                                        <h3 class="mb-4">Sign In</h3>
+                                        <h3 class="mb-4">Ingresar a su Cuenta</h3>
                                     </div>
                                 </div>
                                 <form action="#" class="signin-form" v-on:submit="signIn($event)">
@@ -61,29 +61,29 @@
                                             placeholder="email@mail.com" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="label" for="password">Password</label>
+                                        <label class="label" for="password">Contraseña</label>
                                         <input v-model="password" id="password" type="password" class="form-control"
                                             placeholder="Password" required autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary px-3">Sign In</button>
+                                        <button type="submit" class="form-control btn btn-primary px-3">Ingresar</button>
                                     </div>
                                 </form>
                             </template>
                             <template v-else>
                                 <div class="d-flex">
                                     <div class="w-100">
-                                        <h3 class="mb-4">Sign Up</h3>
+                                        <h3 class="mb-4">Crea tu Cuenta</h3>
                                     </div>
                                 </div>
                                 <form action="#" class="signout-form" v-on:submit="signUp($event)">
                                     <div class="form-group mb-3">
-                                        <label class="label" for="firstName">First name</label>
+                                        <label class="label" for="firstName">Nombre</label>
                                         <input v-model="firstName" id="firstName" type="text" class="form-control"
                                             placeholder="Juan" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="lastName" for="lastName">Last name</label>
+                                        <label class="lastName" for="lastName">Apellido</label>
                                         <input v-model="lastName" id="lastName" type="text" class="form-control"
                                             placeholder="Martinez" required>
                                     </div>
@@ -93,12 +93,12 @@
                                             placeholder="email@mail.com" required>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label class="label" for="rpassword">Password</label>
+                                        <label class="label" for="rpassword">Contraseña</label>
                                         <input v-model="password" id="rpassword" type="password" class="form-control"
                                             placeholder="Password" required autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="form-control btn btn-primary px-3">Sign Up</button>
+                                        <button type="submit" class="form-control btn btn-primary px-3">Crea su Cuenta</button>
                                     </div>
                                 </form>
                             </template>
@@ -109,6 +109,13 @@
         </div>
     </div>
     </div>
+    <footer class="footer mt-auto py-3 bg-light" id="manual">
+        <div class="container text-center">
+            <a href="./img/manual.pdf" download="manual.pdf" class="btn btn-outline-primary">
+                Descargar Manual de Usuario
+            </a>
+        </div>
+    </footer>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

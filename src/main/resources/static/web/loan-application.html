@@ -9,14 +9,14 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Loans Applications</title>
+    <title>Prestamos</title>
 </head>
 
 <body id="loan">
 <div class="row" id="banner">
     <div class="banner">
-        <h1 id="welcome">Welcome to Bank</h1>
-        <img id="banking" src="./img/baner2.jpg">
+        <h1 id="welcome">Bienvenidos al Banco</h1>
+        <img id="banking" src="./img/baner2.png">
     </div>
 </div>
     <div id="app">
@@ -46,66 +46,66 @@
                             <li class="nav-item">
                                 <a href="/web/accounts.html" class="nav-link link-dark">
                                     <i class="bi bi-inboxes"></i>
-                                    Accounts
+                                    Cuentas
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/cards.html" class="nav-link link-dark">
                                     <i class="bi bi-credit-card"></i>
-                                    Cards
+                                    Tarjetas
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/transfers.html" class="nav-link link-dark">
                                     <i class="bi bi-box-arrow-right"></i>
-                                    Transfers
+                                    Transferencias
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/loan-application.html" class="nav-link active">
                                     <i class="bi bi-cash"></i>
-                                    Loans
+                                    Prestamos
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/personal-details.html" class="nav-link link-dark">
                                     <i class="bi bi-person"></i>
-                                    Personal Details
+                                    Datos Personales
                                 </a>
                             </li>
                             <li v-if="isAdmin" class="nav-item">
                                 <a href="/web/stats.html" class="nav-link link-dark">
                                     <i class="bi bi-bar-chart"></i>
-                                    Statistics
+                                    Estadisticas
                                 </a>
                             </li>
                         </ul>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
-                            <button class="btn btn-danger img-fluid" v-on:click="signOut">Sign out</button>
+                            <button class="btn btn-danger img-fluid" v-on:click="signOut">Cerrar Sección</button>
                         </ul>
                     </div>
                 </div>
                 <div class="col offset-md-1">
                     <div class="row mt-3">
                         <div class="col-10">
-                            <h2 class="display-6 subtitle">Loan application</h2>
+                            <h2 class="display-6 subtitle">Solicitud de préstamo</h2>
                             <form class="mt-4">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <label for="type" class="form-label">Loan types</label>
+                                        <label for="type" class="form-label">Tipo de Prestamos</label>
                                         <select id="type" v-model="loanTypeId" v-on:change="changedType"
                                             class="form-select" aria-label="Default select example" required>
-                                            <option value="0">Open this select menu</option>
+                                            <option value="0">Abre este menú y seleccioné</option>
                                             <option v-for="loanType in loanTypes" v-bind:value="loanType.id">{{
                                                 loanType.name }} | max amount: {{ loanType.maxAmount }}</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="payments" class="form-label">Payments</label>
+                                        <label for="payments" class="form-label">Pagos</label>
                                         <select id="payments" v-model="payments" class="form-select"
                                             aria-label="Default select example" required>
-                                            <option value="0">Open this select menu</option>
+                                            <option value="0">Abre este menú y seleccioné</option>
                                             <option v-for="payment in paymentsList" v-bind:value="payment">{{ payment }}
                                             </option>
                                         </select>
@@ -113,27 +113,27 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-5">
-                                        <label for="to-account" class="form-label">To account</label>
+                                        <label for="to-account" class="form-label">A la Cuenta</label>
                                         <select id="to-account" v-model="accountToNumber" class="form-select"
                                             aria-label="Default select example" required>
-                                            <option value="VIN">Open this select menu</option>
+                                            <option value="VIN">Abre este menú y seleccioné</option>
                                             <option v-for="account in clientAccounts" v-bind:value="account.number">{{
                                                 account.number }}</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="amount" class="form-label">Amount</label>
+                                        <label for="amount" class="form-label">Importe</label>
                                         <input id="amount" v-model="amount" type="number" class="form-control"
                                             placeholder="VIN000554" aria-label="to account">
                                     </div>
                                     <div class="col">
-                                        <label class="form-label">Fees</label>
+                                        <label class="form-label">Tarifas o Pagos</label>
                                         <div><button type="button" v-on:click="checkFees"
-                                                class="btn btn-sm btn-primary mt-1">See fees</button></div>
+                                                class="btn btn-sm btn-primary mt-1">Ver Tarifas</button></div>
                                     </div>
                                 </div>
                                 <button type="button" v-on:click="checkApplication"
-                                    class="btn btn-sm btn-success mt-4">Apply</button>
+                                    class="btn btn-sm btn-success mt-4">Solicitar</button>
                             </form>
                         </div>
                     </div>
@@ -145,16 +145,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="confirModalLabel">Confirm Loan Application</h5>
+                        <h5 class="modal-title" id="confirModalLabel">Confirmar Solicitud de Préstamo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Loans applications cannot be undone, do you want to continue?
+                        Las solicitudes de préstamo no se pueden deshacer, ¿deseas continuar?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" v-on:click="apply" class="btn btn-sm btn-success">Yes, apply
-                            loan</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" v-on:click="apply" class="btn btn-sm btn-success">Si, Solicitar
+                            Prestamo</button>
                     </div>
                 </div>
             </div>
@@ -164,11 +164,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="okModalLabel">Application complete!</h5>
+                        <h5 class="modal-title" id="okModalLabel">Solicitud Completada!</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        The loan have been applied! <i class="bi bi-check-circle-fill text-success"></i>
+                        ¡El préstamo ha sido solicitado! <i class="bi bi-check-circle-fill text-success"></i>
                     </div>
                     <div class="modal-footer">
                         <button type="button" v-on:click="finish" class="btn btn-sm btn-success"
@@ -182,11 +182,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="feesModalLabel">Loan fees</h5>
+                        <h5 class="modal-title" id="feesModalLabel">Cuotas del Prestamo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        You will pay:
+                        Usted pagará:
                         <ol class="list-group list-group-numbered">
                             <li v-for="fee in fees" class="list-group-item">${{ fee.amount }}</li>
                             <span class="mt-2">Total: ${{ this.totalLoan }}</span>
@@ -203,7 +203,7 @@
     <footer>
         <p>
             <a href="https://frontendprueba123.web.app/" target="_blank">Gerardo Medina Villalba - Facundo Reina</a> |
-            ©  <a href="" target="_blank">Analisis de Sistemas II | 2024 </a> |
+            ©  <a href="" target="_blank">Programación III | 2024 </a> |
             <a href="http://www.unf.edu.ar/" target="_blank">UNAF</a>
         </p>
         <p>Formosa, Argentina</p>

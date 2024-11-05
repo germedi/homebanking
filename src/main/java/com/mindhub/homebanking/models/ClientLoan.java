@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity // Anotación que indica que esta clase es una entidad de la base de datos
 public class ClientLoan {
@@ -37,6 +38,8 @@ public class ClientLoan {
 
     public ClientLoan(LocalDateTime now, double amount, Loan loan, Client client) {
     }
+
+
 
     public long getId() {
         return id;

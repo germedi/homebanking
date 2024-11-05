@@ -134,37 +134,7 @@ footer{
     margin-top: 0px;
     position: relative; /* Cambiado de static a relative */
 }
-img#banking {
-    width: 30%;
-    height: auto;
-    margin: 6px;
-    margin-left: 54px;
-    opacity: 0.78;
-}
-h1#welcome{
-    margin-left: 133px;
-}
 
-@media screen and (max-width: 767px) {
-    .menu-logo {
-        width: 100%;
-        max-width: 206px;
-        height: auto;
-        margin-left: 15%;
-    }
-    img#banking {
-        width: 70%;
-        height: auto;
-        margin: 100px;
-        margin-left: 54px;
-        opacity: 0.78;
-    }
-    h1#welcome {
-        margin-left: 75px;
-        top: 15px;
-        position: absolute;
-    }
-}
 
 #footer a {
     color: white;
@@ -180,17 +150,75 @@ h1#welcome{
     }
 }
 
-/* Reglas para visualización en tablet */
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    img#banking {
-        width: 70%;
-        height: auto;
-        margin: 84px;
-        margin-left: 74px;
-        opacity: 0.78;
-    }
 
-    h1#welcome {
-        margin-left: 176px;
+
+footer#manual {
+    color: #fefefe;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 2px -2px 5px #999;
+    justify-content: center;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background-color: #f8f9fa; /* Asegúrate de que el fondo sea visible */
+    padding: 1rem 0;
+}
+/* Aseguramos que el contenedor #banner se ajuste a diferentes pantallas */
+#banner {
+    width: 100%;           /* El banner ocupará el 100% del ancho de la pantalla */
+
+ }
+
+ img#banking {
+             width: 10%;
+             margin:2%;
+             margin-left:4%;
+             height: auto;
+             width-max:10%;
+             width-min: 6%;
+ }
+ #welcome{
+ margin: 1%;
+ }
+
+
+
+/* Ajustamos la imagen para que sea completamente responsiva */
+#banking {
+    max-width: 100%;       /* La imagen nunca será más grande que su contenedor */
+    height: auto;          /* Mantener la proporción de la imagen */
+
+}
+
+/* Ajustamos el texto dentro del banner */
+#welcome {
+    font-size: 2em;         /* Tamaño de fuente grande para pantallas grandes */
+
+}
+
+/* Medias queries para ajustar el diseño en pantallas más pequeñas */
+@media (max-width: 768px) {
+    #welcome {
+        font-size: 1.5em;    /* Reducimos el tamaño del texto en pantallas pequeñas */
     }
+     img#banking {
+                 width: 40%;
+
+     }
+
+
+}
+
+@media (max-width: 480px) {
+    #welcome {
+        font-size: 1.2em;    /* Tamaño de fuente aún más pequeño en dispositivos móviles */
+    }
+      img#banking {
+                     width: 40%;
+
+         }
 }

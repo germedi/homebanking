@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Statistics</title>
+    <title>Estadisticas del Banco</title>
 </head>
 
 <body id="statistics">
@@ -21,8 +21,8 @@
 </style>
 <div class="row" id="banner">
     <div class="banner">
-        <h1 id="welcome">Welcome to Bank</h1>
-        <img id="banking" src="./img/baner2.jpg">
+        <h1 id="welcome">Bienvenidos al Banco</h1>
+        <img id="banking" src="./img/baner2.png">
     </div>
 </div>
 <div id="app" v-cloak>
@@ -52,76 +52,57 @@
                         <li class="nav-item">
                             <a href="/web/accounts.html" class="nav-link link-dark">
                                 <i class="bi bi-inboxes"></i>
-                                Accounts
+                                Cuentas
                             </a>
                         </li>
                         <li>
                             <a href="/web/cards.html" class="nav-link link-dark">
                                 <i class="bi bi-credit-card"></i>
-                                Cards
+                                Tarjetas
                             </a>
                         </li>
                         <li>
                             <a href="/web/transfers.html" class="nav-link link-dark">
                                 <i class="bi bi-box-arrow-right"></i>
-                                Transfers
+                                Transferencias
                             </a>
                         </li>
                         <li>
                             <a href="/web/loan-application.html" class="nav-link link-dark">
                                 <i class="bi bi-cash"></i>
-                                Loans
+                                Prestamos
                             </a>
                         </li>
                         <li>
-                            <a href="/web/personal-details.html" class="nav-link link-dark">
+                            <a href="/web/personal-details.html" class="nav-link active">
                                 <i class="bi bi-person"></i>
-                                Personal Details
+                                Datos Personales
                             </a>
                         </li>
+
                         <li v-if="isAdmin" class="nav-item">
-                            <a href="/web/stats.html" class="nav-link active">
+                            <a href="/web/stats.html" class="nav-link link-dark">
                                 <i class="bi bi-bar-chart"></i>
-                                Statistics
+                                Estadisticas
                             </a>
                         </li>
                     </ul>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
-                        <button class="btn btn-danger img-fluid" v-on:click="signOut">Sign out</button>
+                        <button class="btn btn-danger img-fluid" v-on:click="signOut">Cerrar Sección</button>
                     </ul>
                 </div>
             </div>
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <h1 class="display-1">Statistics</h1>
+                        <h1 class="display-1">Estatisticas</h1>
                     </div>
                 </div>
                 <div>
-                    <canvas id="MiGrafica" width="400" height="300"></canvas>
+                    <canvas id="myChart"></canvas>
                 </div>
-                <script>
-                    // Esperar a que el DOM esté completamente cargado antes de ejecutar el código de Chart.js
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // Obtener el contexto 2D del canvas
-                        let miCanvas = document.getElementById("MiGrafica").getContext("2d");
 
-                        // Crear una nueva instancia de Chart
-                        var chart = new Chart(miCanvas, {
-                            type: "bar", // Tipo de gráfico
-                            data: {
-                                labels: ["Hipotecary", "Personal", "Automotive"], // Etiquetas para el eje X
-                                datasets: [{
-                                    label: "Prestamos en miles", // Etiqueta del conjunto de datos
-                                    backgroundColor: "rgb(0,0,0)", // Color de fondo de las barras
-                                    borderColor: "rgb(0,255,0)", // Color del borde de las barras
-                                    data: [500, 100, 300] // Datos a graficar
-                                }]
-                            }
-                        });
-                    });
-                </script>
 
             </div>
         </div>
@@ -131,7 +112,7 @@
     <footer>
         <p>
             <a href="https://frontendprueba123.web.app/" target="_blank">Gerardo Medina Villalba - Facundo Reina</a> |
-            ©  <a href="" target="_blank">Analisis de Sistemas II | 2024 </a> |
+            ©  <a href="" target="_blank">Programación III | 2024 </a> |
             <a href="http://www.unf.edu.ar/" target="_blank">UNAF</a>
         </p>
         <p>Formosa, Argentina</p>
@@ -166,6 +147,8 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
 <script src="js/accounts.js"></script>
+<script src="js/stats.js"></script>
+
 </body>
 
 </html>

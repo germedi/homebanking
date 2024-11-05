@@ -94,4 +94,7 @@ public class Loan {
         return clientLoans;
     }
 
+    public Iterable<? extends ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
 }

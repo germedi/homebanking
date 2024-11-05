@@ -20,10 +20,18 @@ Vue.createApp({
             }
             axios.post('/api/login', `email=${this.email}&password=${this.password}`, config)
                 .then(response => window.location.href = "/web/accounts.html")
-                .catch(() => {
-                    this.errorMsg = "Sign in failed, check the information"
+                .catch((error) => {
+                    if (error.response && error.response.status === 401) {
+                        alert("Error al iniciar sesión. Verifica la información e intenta nuevamente.");
+                    } else {
+                        alert("Error al iniciar sesión. Verifica la información e intenta nuevamente.");
+                    }
+                    this.errorMsg = "Sign in failed, check the information";
                     this.errorToats.show();
-                })
+                    setTimeout(() => {
+                        window.location.href = "/web/index.html";
+                    }, 1000); // Retraso de 1 segundo para mostrar el alert
+                });
         },
         signUp: function (event) {
             event.preventDefault();
@@ -36,9 +44,9 @@ Vue.createApp({
                 .then(() => { this.signIn(event) })
                 .catch((error) => {
                     console.log(error); // Agregar esta línea para manejar los errores
-                    this.errorMsg = "Sign up failed, check the information"
+                    this.errorMsg = "Sign up failed, check the information";
                     this.errorToats.show();
-                })
+                });
         },
         showSignUpToogle: function () {
             this.showSignUp = !this.showSignUp;
@@ -50,4 +58,4 @@ Vue.createApp({
     mounted: function () {
         this.errorToats = new bootstrap.Toast(document.getElementById('danger-toast'));
     }
-}).mount('#app')
+}).mount('#app');

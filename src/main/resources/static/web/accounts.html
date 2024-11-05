@@ -9,7 +9,7 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Accounts</title>
+    <title>Cuentas</title>
 </head>
 
 <body id="accounts">
@@ -20,8 +20,8 @@
     </style>
     <div class="row" id="banner">
         <div class="banner">
-            <h1 id="welcome">Welcome to Bank</h1>
-            <img id="banking" src="./img/baner2.jpg">
+            <h1 id="welcome">Bienvenidos al Banco</h1>
+            <img id="banking" src="./img/baner2.png">
         </div>
 
 
@@ -53,57 +53,57 @@
                             <li class="nav-item">
                                 <a href="/web/accounts.html" class="nav-link active">
                                     <i class="bi bi-inboxes"></i>
-                                    Accounts
+                                    Cuentas
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/cards.html" class="nav-link link-dark">
                                     <i class="bi bi-credit-card"></i>
-                                    Cards
+                                    Tarjetas
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/transfers.html" class="nav-link link-dark">
                                     <i class="bi bi-box-arrow-right"></i>
-                                    Transfers
+                                    Transferencias
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/loan-application.html" class="nav-link link-dark">
                                     <i class="bi bi-cash"></i>
-                                    Loans
+                                    Prestamos
                                 </a>
                             </li>
                             <li>
                                 <a href="/web/personal-details.html" class="nav-link link-dark">
                                     <i class="bi bi-person"></i>
-                                    Personal Details
+                                    Datos Personales
                                 </a>
                             </li>
                             <li v-if="isAdmin" class="nav-item">
                                 <a href="/web/stats.html" class="nav-link link-dark">
                                     <i class="bi bi-bar-chart"></i>
-                                    Statistics
+                                    Estadisticas
                                 </a>
                             </li>
                         </ul>
                         <hr>
                         <ul class="nav nav-pills flex-column mb-auto">
-                            <button class="btn btn-danger img-fluid" v-on:click="signOut">Sign out</button>
+                            <button class="btn btn-danger img-fluid" v-on:click="signOut">Cerrar Sesión</button>
                         </ul>
                     </div>
                 </div>
                 <div class="col">
                     <div class="row">
                         <div class="col">
-                            <h1 class="display-1">Client Name: {{ clientInfo.firstName }} {{ clientInfo.lastName }}</h1>
+                            <h1 class="display-1">Cliente: {{ clientInfo.firstName }} {{ clientInfo.lastName }}</h1>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <h2 class="display-6 subtitle">Accounts</h2>
+                            <h2 class="display-6 subtitle">Cuentas</h2>
                             <button v-if="clientInfo.accounts != null && clientInfo.accounts.length < 3"
-                                v-on:click="create" id="create" class="btn btn-sm btn-success">Create</button>
+                                v-on:click="create" id="create" class="btn btn-sm btn-success">Crear</button>
                         </div>
                     </div>
                     <div class="row mx-2">
@@ -121,7 +121,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            <h2 class="display-6">Loans</h2>
+                            <h2 class="display-6">Prestamos</h2>
                             <span class="small" v-if="clientInfo.loan != null && clientInfo.loans.length <= 0">No
                                 loans</span>
                         </div>
@@ -145,7 +145,7 @@
         <footer>
             <p>
                 <a href="https://frontendprueba123.web.app/" target="_blank">Gerardo Medina Villalba - Facundo Reina</a> |
-                ©  <a href="" target="_blank">Analisis de Sistemas II | 2024 </a> |
+                ©  <a href="" target="_blank">Programación III | 2024 </a> |
                 <a href="http://www.unf.edu.ar/" target="_blank">UNAF</a>
             </p>
             <p>Formosa, Argentina</p>
